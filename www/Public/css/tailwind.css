@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input {
+  @apply bg-transparent w-full ps-5 py-2 font-semibold focus:outline-none;
+}

@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/www/Public/css/tailstyles.css">
+
+<div class="m-8">
+  <div>
+    <div class="arrowBack flex mb-16 bg-black w-fit rounded py-1 p-0.5 pe-1">
+        <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+    </div>
+    <div>
+      <h1 class="text-2xl font-bold mb-2">Create Account</h1>
+      <p class="text-gray-600">Fill your details or continue with social media</p>
+    </div>
+    <div class="mt-8">
+      <div class="my-3 bg-gray-100 rounded-lg">
+        <input id="username" name="username" type="text" placeholder="Username" class="input">
+      </div>
+      <div class="my-3 bg-gray-100 rounded-lg">
+        <input id="emailAddress" name="email" type="email" placeholder="Email Address" class="input">
+      </div>
+      <div class="my-3 bg-gray-100 rounded-lg">
+        <input id="password" name="password" type="password" placeholder="Password" class="input">
+      </div>
+    </div>
+    <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
+      <button class="text-sm text-white font-semibold py-2">Sign Up</button>
+    </div>
+  </div>
+  <div>
+    <div class="flex justify-center mt-12">
+      <p class="text-sm text-gray-500 font-semibold">* Or continue with *</p>
+    </div>
+    <div class="flex justify-center items-center gap-3 my-8">
+      <div class="border-2 border-black rounded">
+        <img class="w-12" src="/www/Public/img/google.svg" alt="">
+      </div>
+      <div class="border-2 border-black rounded">
+        <img class="w-12 p-1" src="/www/Public/img/facebook.svg" alt="">
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center text-sm text-gray-500">
+      <p>By Continuing You Confirm That You</p>
+      <p>Agree With Our <strong>Terms And Conditions</strong></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector('.arrowBack').addEventListener('click', function() {
+    LoadPartialView('/login', document.querySelector('.app'))
+  })
+</script>

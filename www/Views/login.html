@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/www/Public/css/tailstyles.css">
+
+<div class="m-8">
+  <div>
+    <div class="arrowBack flex mb-16 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
+      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    </div>
+    <div>
+      <h1 class="text-2xl font-bold mb-2">Welcome back!</h1>
+      <p class="text-gray-600">Fill your details or continue with social media</p>
+    </div>
+    <div class="mt-8">
+      <div class="my-3 bg-gray-100 rounded-lg">
+        <input id="emailAddress" name="email" type="email" placeholder="Email Address" class="input">
+      </div>
+      <div class="my-3 bg-gray-100">
+        <input id="password" name="password" type="password" placeholder="Password" class="input">
+      </div>
+    </div>
+    <div class="flex justify-end text-xs text-gray-500">
+      <a href="#">Forgot password?</a>
+    </div>
+    <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
+      <button class="text-sm text-white font-semibold py-2">Sign In</button>
+    </div>
+    <p class="signInTxt flex justify-center mt-4 text-sm">Don't have an account?&nbsp;
+      <span class="text-orange-500 font-bold cursor-pointer">Sign up</span>
+    </p>
+  </div>
+  <div>
+    <hr class="border-2 mt-6">
+  </div>
+  <div>
+    <div class="flex justify-center mt-6">
+      <p class="text-sm text-gray-500 font-semibold">* Or continue with *</p>
+    </div>
+
+    <div class="flex justify-center items-center gap-3 my-8">
+      <div class="border-2 border-black rounded cursor-pointer">
+        <img class="w-12" src="/www/Public/img/google.svg" alt="">
+      </div>
+      <div class="border-2 border-black rounded cursor-pointer">
+        <img class="w-12 p-1" src="/www/Public/img/facebook.svg" alt="">
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center text-sm text-gray-500">
+      <p>By Continuing Your Confirm That You</p>
+      <p>Agree With Our <strong>Terms And Conditions</strong></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector('.arrowBack').addEventListener('click', function() {
+    LoadPartialView('/register', document.querySelector('.app'))
+  })
+
+  document.querySelector('.signInTxt').addEventListener('click', function() {
+    LoadPartialView('/register', document.querySelector('.app'))
+  })
+</script>
