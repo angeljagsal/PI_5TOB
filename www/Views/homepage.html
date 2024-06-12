@@ -1,3 +1,5 @@
+<!-- UPPER NAVBAR -->
+
 <div class="mx-8 mt-8 mb-4">
   <div class="grid grid-cols-8 gap-0">
     <div class="flex col-span-7 border border-gray-400 rounded-full shadow-md">
@@ -12,6 +14,8 @@
   </div>
   <hr class="border border-gray-300 mt-5 text-black">
 </div>
+
+<!-- HOMEPAGE CARDS -->
 
 <div class="overflow-auto h-screen mt-5 pb-48">
   <div class="cards-wrapper flex justify-center mb-3">
@@ -50,20 +54,34 @@
     </div>
   </div>
 </div>
-  
+
+<!-- LOWER NAVBAR -->
+
 <nav class="absolute bottom-0 right-0 left-0 w-full overflow-hidden h-16 bg-white shadow-inner rounded-t-lg">
   <div class="flex justify-center items-center mt-5">
-    <div class="w-1/4 flex flex-col items-center justify-center">
-      <img class="w-5 cursor-pointer" src="/www/Public/img/home.svg" alt="">
+    <div class="homeIcon w-1/4 flex flex-col items-center justify-center">
+      <img class="w-6 cursor-pointer" src="/www/Public/img/home.svg" alt="">
     </div>
-    <div class="w-1/4 flex flex-col items-center justify-center">
-      <img class="w-5 cursor-pointer" src="/www/Public/img/heart.svg" alt="">
+    <div class="likedIcon w-1/4 flex flex-col items-center justify-center">
+      <img class="w-6 cursor-pointer opacity-30" src="/www/Public/img/heart.svg" alt="">
     </div>
-    <div class="w-1/4 flex flex-col items-center justify-center">
-      <img class="w-5 cursor-pointer" src="/www/Public/img/map.svg" alt="">
+    <div class="mapIcon w-1/4 flex flex-col items-center justify-center">
+      <img class="w-6 cursor-pointer opacity-30" src="/www/Public/img/map.svg" alt="">
     </div>
-    <div class="w-1/4 flex flex-col items-center justify-center">
-      <img class="w-5 cursor-pointer" src="/www/Public/img/user.svg" alt="">
+    <div class="userIcon w-1/4 flex flex-col items-center justify-center">
+      <img class="w-6 cursor-pointer opacity-30" src="/www/Public/img/user.svg" alt="">
     </div>
   </div>
 </nav>
+
+<script>
+  document.querySelector('.likedIcon').addEventListener('click', function() {
+    LoadPartialView('/liked', document.querySelector('.app'))
+  })
+  document.querySelector('.mapIcon').addEventListener('click', function() {
+    LoadPartialView('/map', document.querySelector('.app'))
+  })
+  document.querySelector('.userIcon').addEventListener('click', function() {
+    LoadPartialView('/userprofile', document.querySelector('.app'))
+  })
+</script>
