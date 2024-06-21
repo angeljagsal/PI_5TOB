@@ -12,20 +12,22 @@
       <h1 class="text-2xl font-bold mb-2">Create Account</h1>
       <p class="text-gray-600">Fill your details or continue with social media</p>
     </div>
-    <div class="mt-8">
-      <div class="my-3 bg-gray-100 rounded-lg">
-        <input id="username" name="username" type="text" placeholder="Username" class="input">
+    <form class="registerForm" method="post">
+      <div class="mt-8">
+        <div class="my-3 bg-gray-100 rounded-lg">
+          <input id="username" name="username" type="text" placeholder="Username" class="input">
+        </div>
+        <div class="my-3 bg-gray-100 rounded-lg">
+          <input id="emailAddress" name="email" type="email" placeholder="Email Address" class="input">
+        </div>
+        <div class="my-3 bg-gray-100 rounded-lg">
+          <input id="password" name="password" type="password" placeholder="Password" class="input">
+        </div>
       </div>
-      <div class="my-3 bg-gray-100 rounded-lg">
-        <input id="emailAddress" name="email" type="email" placeholder="Email Address" class="input">
+      <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
+        <button class="text-sm text-white font-semibold py-2" type="submit">Sign Up</button>
       </div>
-      <div class="my-3 bg-gray-100 rounded-lg">
-        <input id="password" name="password" type="password" placeholder="Password" class="input">
-      </div>
-    </div>
-    <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
-      <button class="text-sm text-white font-semibold py-2">Sign Up</button>
-    </div>
+    </form>
   </div>
   <div>
     <div class="flex justify-center mt-12">
@@ -46,6 +48,8 @@
     </div>
   </div>
 </div>
+
+<script src="/www/Controllers/loginController.js"></script>
 
 <script>
   document.querySelector('.arrowBack').addEventListener('click', function() {

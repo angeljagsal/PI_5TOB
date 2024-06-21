@@ -12,23 +12,23 @@
       <h1 class="text-2xl font-bold mb-2">Welcome back!</h1>
       <p class="text-gray-600">Fill your details or continue with social media</p>
     </div>
-    <div class="mt-8">
+    <form id="loginForm" class="loginForm mt-8" method="post">
       <div class="my-3 bg-gray-100 rounded-lg">
         <input id="emailAddress" name="email" type="email" placeholder="Email Address" class="input">
       </div>
       <div class="my-3 bg-gray-100">
         <input id="password" name="password" type="password" placeholder="Password" class="input">
       </div>
-    </div>
-    <div class="flex justify-end text-xs text-gray-500">
-      <a href="#">Forgot password?</a>
-    </div>
-    <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
-      <button class="text-sm text-white font-semibold py-2">Sign In</button>
-    </div>
-    <p class="signInTxt flex justify-center mt-4 text-sm">Don't have an account?&nbsp;
-      <span class="text-orange-500 font-bold cursor-pointer">Sign up</span>
-    </p>
+      <div class="flex justify-end text-xs text-gray-500">
+        <a href="#">Forgot password?</a>
+      </div>
+      <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
+        <button class="text-sm text-white font-semibold py-2 w-full" type="submit">Sign In</button>
+      </div>
+      <p class="signInTxt flex justify-center mt-4 text-sm">Don't have an account?&nbsp;
+        <span class="text-orange-500 font-bold cursor-pointer">Sign up</span>
+      </p>
+    </form>
   </div>
   <div>
     <hr class="border-2 mt-6">

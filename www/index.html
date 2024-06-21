@@ -34,28 +34,17 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 
-    <script src="Public/js/jquery/dist/jquery.min.js"></script>
-    <script src="Public/js/index.js"></script>
-
     <link rel="stylesheet" href="Public/css/tailstyles.css">
 
-    <style>
-        /* Asegúrate de que html y body ocupen toda la altura y anchura de la pantalla */
-        html, body {
-          height: 100%;
-          width: 100%;
-          margin: 0;
-          padding: 0;
-          overflow: hidden; /* Evita el scroll fuera de los contenedores */
-        }
-    </style>
-
     <title>App</title>
-</head>
+
+    <script src="Public/js/jquery/dist/jquery.min.js"></script>
+    <script src="Public/js/index.js"></script>
+</head> 
 
 <body class="app">
     <script>
-        LoadPartialView('userprofile', document.querySelector('.app'));
+        LoadPartialView('homepage', document.querySelector('.app'));
     </script>
 </body>
 
