@@ -23,7 +23,7 @@
 
 function LoadPartialView(viewName, divClass = null) {
     $.ajax({
-        url: '/Views/' + viewName + '.html',
+        url: '/www/Views/' + viewName + '.html',
         method: 'GET',
         success: function (data) {
             $(divClass).html(data);

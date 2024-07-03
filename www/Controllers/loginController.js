@@ -14,18 +14,22 @@ async function login(email, password) {
           headers: {
               'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ 
-            email: email,
-            password: password
-        })
+          body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-          console.log('Login successful:', data);
+          console.table(data);
+
+          // Save user data within local storage
+          saveLocalStorageValue("user_id", data.user.id);
+          saveLocalStorageValue("username", data.user.username);
+          saveLocalStorageValue("email", data.user.email);
+
+          // Change partial view
           LoadPartialView('homepage', document.querySelector('.app'));
-    } else {
+      } else {
           console.error('Login failed:', data.message);
           alert('Error al iniciar sesión: ' + data.message);
       }
