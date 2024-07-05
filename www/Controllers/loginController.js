@@ -23,7 +23,7 @@ async function login(email, password) {
           console.table(data);
 
           // Save user data within local storage
-          saveLocalStorageValue("user_id", data.user.id);
+          saveLocalStorageValue("userId", data.user.id);
           saveLocalStorageValue("username", data.user.username);
           saveLocalStorageValue("email", data.user.email);
 

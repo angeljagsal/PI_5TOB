@@ -1,3 +1,6 @@
+const userId = getLocalStorageValue("userId");
+console.log(userId);
+
 // Función para mandar datos a la API y crear un post
 async function createPost(img, title, desc, price) {
     document.getElementById('postForm').addEventListener('submit', function (event) {
@@ -17,7 +20,7 @@ async function createPost(img, title, desc, price) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ img, title, desc, price }),
+            body: JSON.stringify({ userId, img, title, desc, price }),
         });
 
         const data = await response.json();
@@ -67,4 +70,27 @@ function loadPosts() {
             }
         })
         .catch(error => console.error('Error loading posts:', error));
+}
+
+// Función para eliminar un post llamandoi a la API
+function deletePost() {
+    fetch('http://localhost:3000/api/deletePost', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId, imgName }),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to delete post');
+    })
+    .then(data => {
+        console.log('Post deleted:', data);
+    })
+    .catch(error => {
+        console.error('Error deleting post:', error);
+    });
 }
