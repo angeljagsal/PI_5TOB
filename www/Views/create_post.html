@@ -22,10 +22,10 @@
         </div>
         <!-- Image input -->
         <div id="openImgExplorer" class="flex justify-center my-2 border-2 rounded-md py-10 px-1.5 text-sm cursor-pointer">
-          <input id="img" name="img" type="file" accept="image/*" class="hidden">
+          <input id="img" name="img" type="file" accept="image/*">
         </div>
         <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
-          <button class="text-sm text-white font-semibold py-2 w-full" type="submit">Create</button>
+          <button id="formBtn" class="text-sm text-white font-semibold py-2 w-full" type="submit">Create</button>
         </div>
       </div>
     </form>
@@ -35,12 +35,29 @@
 <script src="/www/Controllers/postController.js"></script>
 
 <script>
+  document.getElementById('postForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const desc = document.getElementById('desc').value;
+    const price = document.getElementById('price').value;
+    const imgInput = document.getElementById('img');
+    const imgFile = imgInput.files[0];
+
+    if (!title || !desc || !price || !imgFile) {
+      alert("All fields must be properly filled.");
+      return;
+    } else {
+      createPost(title, desc, price, imgFile);
+    }
+  })
+
   // Arrow back functionality
   document.querySelector('.arrowBack').addEventListener('click', function () {
     LoadPartialView('homepage', document.querySelector('.app'))
   })
   // Trigger file input when clicking openImgExplorer div
-  document.getElementById('openImgExplorer').addEventListener('click', function () {
-    document.getElementById('img').click();
-  })
+  // document.getElementById('openImgExplorer').addEventListener('click', function () {
+  //   document.getElementById('img').click();
+  // })
 </script>

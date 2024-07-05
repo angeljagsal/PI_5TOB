@@ -1,33 +1,25 @@
-const userId = getLocalStorageValue("userId");
-console.log(userId);
+var userId = getLocalStorageValue("userId");
 
 // Función para mandar datos a la API y crear un post
-async function createPost(img, title, desc, price) {
-    document.getElementById('postForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const img = document.getElementById('img').value;
-        const title = document.getElementById('title').value;
-        const desc = document.getElementById('desc').value;
-        const price = document.getElementById('price').value;
-
-        createPost(img, title, desc, price);
-    });
+async function createPost(title, desc, price, imgFile) {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('desc', desc);
+    formData.append('price', price);
+    formData.append('img', imgFile);
+    formData.append('userId', userId);
 
     try {
         const response = await fetch('http://localhost:3000/api/post', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ userId, img, title, desc, price }),
+            body: formData,
         });
 
         const data = await response.json();
 
         if (response.ok) {
             console.table(data);
-            // Change partial view
+            alert('Post successfully created!')
             LoadPartialView('homepage', document.querySelector('.app'));
         } else {
             console.error(data.message);
@@ -79,7 +71,7 @@ function deletePost() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ postId, imgName }),
+        body: JSON.stringify({ postId, imgName }), // NOMBRE DE LA IMAGEN SERÁ SACADO RECORTANDO URL
     })
     .then(response => {
         if (response.ok) {
