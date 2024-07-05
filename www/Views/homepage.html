@@ -15,40 +15,23 @@
 </div>
 
 <!-- Main Content Area for Cards with Scroll -->
-<div class="pt-32 pb-16 overflow-auto h-screen">
-  <div class="cards-wrapper flex justify-center mb-3">
+<div class="cardsArea pt-32 pb-16 overflow-auto h-screen">
+  <!-- Cards are automatically put using js -->
+  <!-- <div class="cards-wrapper flex justify-center mb-3">
       <div class="card w-10/12">
           <div class="bg-black w-full h-80 rounded-xl"></div>
           <p class="text-xs mt-2">Texto de prueba</p>
           <p class="text-xs text-gray-600">Hosted by</p>
           <p class="text-xs text-gray-600">$999MXN</p>
       </div>
-  </div>
-  <div class="cards-wrapper flex justify-center mb-3">
-    <div class="card w-10/12">
-        <div class="bg-black w-full h-80 rounded-xl"></div>
-        <p class="text-xs mt-2">Texto de prueba</p>
-        <p class="text-xs text-gray-600">Hosted by</p>
-        <p class="text-xs text-gray-600">$999MXN</p>
-    </div>
+  </div> -->
 </div>
-<div class="cards-wrapper flex justify-center mb-3">
-  <div class="card w-10/12">
-      <div class="bg-black w-full h-80 rounded-xl"></div>
-      <p class="text-xs mt-2">Texto de prueba</p>
-      <p class="text-xs text-gray-600">Hosted by</p>
-      <p class="text-xs text-gray-600">$999MXN</p>
+
+<!-- Post bubble -->
+<div class="addPost fixed bottom-20 right-4">
+  <div class="h-14 w-14 rounded-full flex items-center justify-center cursor-pointer">
+    <img class="max-h-full w-full" src="Public/img/add.svg">
   </div>
-</div>
-<div class="cards-wrapper flex justify-center mb-3">
-  <div class="card w-10/12">
-      <div class="bg-black w-full h-80 rounded-xl"></div>
-      <p class="text-xs mt-2">Texto de prueba</p>
-      <p class="text-xs text-gray-600">Hosted by</p>
-      <p class="text-xs text-gray-600">$999MXN</p>
-  </div>
-</div>
-  <!-- Repeat other cards as needed -->
 </div>
 
 <!-- Lower Navbar - Fixed at the bottom -->
@@ -69,7 +52,16 @@
   </div>
 </nav>
 
+<script src="/www/Controllers/postController.js"></script>
+
 <script>
+  // Cargar los posts al cambiar la vista
+  loadPosts();
+
+  // Opciones de cambio de vistas
+  document.querySelector('.addPost').addEventListener('click', function() {
+    LoadPartialView('create_post', document.querySelector('.app'))
+  })
   document.querySelector('.likedIcon').addEventListener('click', function() {
     LoadPartialView('liked', document.querySelector('.app'))
   })

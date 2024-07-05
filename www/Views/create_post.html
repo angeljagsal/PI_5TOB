@@ -1,0 +1,46 @@
+<div class="p-8">
+  <div class="arrowBack flex mb-16 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
+    <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+      stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+  </div>
+  <div class="flex justify-center pb-3">
+    <h1 class="font-bold text-2xl">Create Your Own Post!</h1>
+  </div>
+  <div class="flex justify-center">
+    <form id="postForm" enctype="multipart/form-data">
+      <div>
+        <div class="my-2 border-2 rounded-md py-1 px-3 text-sm">
+          <input id="title" name="title" type="text" placeholder="Title" class="outline-none">
+        </div>
+        <div class="my-2 border-2 rounded-md py-1 px-3 text-sm">
+          <input id="desc" name="desc" type="text" placeholder="Description" class="outline-none">
+        </div>
+        <div class="my-2 border-2 rounded-md py-1 px-3 text-sm">
+          <input id="price" name="price" type="text" placeholder="Price" class="outline-none">
+        </div>
+        <!-- Image input -->
+        <div id="openImgExplorer" class="flex justify-center my-2 border-2 rounded-md py-10 px-1.5 text-sm cursor-pointer">
+          <input id="img" name="img" type="file" accept="image/*" class="hidden">
+        </div>
+        <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
+          <button class="text-sm text-white font-semibold py-2 w-full" type="submit">Create</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/www/Controllers/postController.js"></script>
+
+<script>
+  // Arrow back functionality
+  document.querySelector('.arrowBack').addEventListener('click', function () {
+    LoadPartialView('homepage', document.querySelector('.app'))
+  })
+  // Trigger file input when clicking openImgExplorer div
+  document.getElementById('openImgExplorer').addEventListener('click', function () {
+    document.getElementById('img').click();
+  })
+</script>
