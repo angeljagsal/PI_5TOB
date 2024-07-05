@@ -34,7 +34,7 @@ document.getElementById("registerForm").addEventListener("submit", function(even
 
 async function register(username, email, password) {
   try {
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch(registerUserRoute, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'

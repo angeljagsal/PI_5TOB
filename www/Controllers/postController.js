@@ -10,7 +10,7 @@ async function createPost(title, desc, price, imgFile) {
     formData.append('userId', userId);
 
     try {
-        const response = await fetch('http://localhost:3000/api/post', {
+        const response = await fetch(createPostRoute, {
             method: 'POST',
             body: formData,
         });
@@ -64,7 +64,7 @@ function displayPost(post) {
 
 // Function to retrieve the information of the posts from the API
 function loadPosts() {
-    fetch('http://localhost:3000/api/posts')
+    fetch(loadPostsRoute)
         .then(res => res.json())
         .then(data => {
             // Asegurarse de que 'data.posts' es un arreglo antes de iterar sobre él
@@ -79,7 +79,7 @@ function loadPosts() {
 
 // Function to delete a post by calling the API
 function deletePost() {
-    fetch('http://localhost:3000/api/deletePost', {
+    fetch(deletePostRoute, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
