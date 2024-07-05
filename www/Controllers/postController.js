@@ -1,6 +1,6 @@
 var userId = getLocalStorageValue("userId");
 
-// Función para mandar datos a la API y crear un post
+// Function to send data to the API and create a post
 async function createPost(title, desc, price, imgFile) {
     const formData = new FormData();
     formData.append('title', title);
@@ -19,6 +19,19 @@ async function createPost(title, desc, price, imgFile) {
 
         if (response.ok) {
             console.table(data);
+
+            function saveNewPostId(postId) {
+                let posts = JSON.parse(getLocalStorageValue('posts'));
+
+                if (!posts) {
+                    posts = [];
+                }
+
+                posts.push(postId)
+
+                saveLocalStorageValue("posts", JSON.stringify(posts));
+            }saveNewPostId(data.post.postId);
+
             alert('Post successfully created!')
             LoadPartialView('homepage', document.querySelector('.app'));
         } else {
@@ -31,7 +44,7 @@ async function createPost(title, desc, price, imgFile) {
     }
 }
 
-// Función para mostrar los posts provenientes de la API
+// Function to show posts coming from the API
 function displayPost(post) {
     const cardsArea = document.querySelector('.cardsArea');
 
@@ -49,7 +62,7 @@ function displayPost(post) {
     cardsArea.innerHTML += cardHTML;
 }
 
-// Función para recuperar la información de los posts proveniente de la API
+// Function to retrieve the information of the posts from the API
 function loadPosts() {
     fetch('http://localhost:3000/api/posts')
         .then(res => res.json())
@@ -64,7 +77,7 @@ function loadPosts() {
         .catch(error => console.error('Error loading posts:', error));
 }
 
-// Función para eliminar un post llamandoi a la API
+// Function to delete a post by calling the API
 function deletePost() {
     fetch('http://localhost:3000/api/deletePost', {
         method: 'POST',
