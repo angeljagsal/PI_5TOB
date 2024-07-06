@@ -28,10 +28,10 @@
       <button class="border-2 px-2 py-1 mt-2 text-gray-700 rounded-xl text-xs">Edit profile</button>
     </div>
   </div>
-  <!-- MY STUFF CONTENT -->
+  <!-- Profile content -->
   <div class="mt-12">
     <p class="mb-6 text-sm text-gray-600">My stuff</p>
-    <!-- BUTTON -->
+    <!-- Wishlist container -->
     <div class="grid grid-cols-12 mb-3 cursor-pointer">
       <div class="col-span-2 ms-1">
         <div class="bg-gray-100 w-fit p-1 rounded-lg">
@@ -45,7 +45,21 @@
         <img class="w-5" src="Public/img/rightArrow.svg" alt="">
       </div>
     </div>
-    <!-- BUTTON -->
+     <!-- Manage posts container -->
+     <div class="managePost grid grid-cols-12 mb-3 cursor-pointer">
+      <div class="col-span-2 ms-1">
+        <div class="bg-gray-100 w-fit p-1 rounded-lg">
+          <img class="w-6" src="Public/img/userEdit.svg" alt="">
+        </div>
+      </div>
+      <div class="col-span-9 flex items-center">
+        <p>Manage posts</p>
+      </div>
+      <div class="col-span-1 flex items-center">
+        <img class="w-5" src="Public/img/rightArrow.svg" alt="">
+      </div>
+    </div>
+    <!-- Preferences container -->
     <div class="grid grid-cols-12 mb-3 cursor-pointer">
       <div class="col-span-2 ms-1">
         <div class="bg-gray-100 w-fit p-1 rounded-lg">
@@ -110,13 +124,24 @@
   document.querySelector('.arrowBack').addEventListener('click', function() {
     LoadPartialView('homepage', document.querySelector('.app'))
   })
+
   // Change profile picture
   document.querySelector('.pfp').addEventListener('click', function() {
     LoadPartialView('userprofile', document.querySelector('.app'))
   })
-  // Lower navbar
+
+  // View change functionality
+  document.querySelector('.managePost').addEventListener('click', function() {
+    LoadPartialView('profile/user_posts', document.querySelector('.app'))
+  })
   document.querySelector('.homeIcon').addEventListener('click', function() {
     LoadPartialView('homepage', document.querySelector('.app'))
+  })
+  document.querySelector('.likedIcon').addEventListener('click', function() {
+    LoadPartialView('404error', document.querySelector('.app'))
+  })
+  document.querySelector('.mapIcon').addEventListener('click', function() {
+    LoadPartialView('404error', document.querySelector('.app'))
   })
 </script>
 

@@ -30,7 +30,7 @@ async function createPost(title, desc, price, imgFile) {
                 posts.push(postId)
 
                 saveLocalStorageValue("posts", JSON.stringify(posts));
-            }saveNewPostId(data.post.postId);
+            } saveNewPostId(data.post.postId);
 
             alert('Post successfully created!')
             LoadPartialView('homepage', document.querySelector('.app'));
@@ -44,9 +44,27 @@ async function createPost(title, desc, price, imgFile) {
     }
 }
 
+// Function to retrieve the information of the posts from the API
+function loadPosts() {
+    fetch(loadPostsRoute)
+        .then(res => res.json())
+        .then(data => {
+            if (Array.isArray(data.posts)) {
+                data.posts.forEach(post => displayPost(post)); 
+            } else {
+                console.error('Expected "posts" to be an array but got:', data.posts);
+            }
+        })
+        .catch(error => console.error('Error loading posts:', error));
+}
+
 // Function to show posts coming from the API
 function displayPost(post) {
     const cardsArea = document.querySelector('.cardsArea');
+    if (!cardsArea) {
+        console.error('Element .cardsArea not found');
+        return;
+    }
 
     const cardHTML = `
         <div class="cards-wrapper flex justify-center mb-3">
@@ -62,19 +80,62 @@ function displayPost(post) {
     cardsArea.innerHTML += cardHTML;
 }
 
-// Function to retrieve the information of the posts from the API
-function loadPosts() {
-    fetch(loadPostsRoute)
-        .then(res => res.json())
-        .then(data => {
-            // Asegurarse de que 'data.posts' es un arreglo antes de iterar sobre él
-            if (Array.isArray(data.posts)) {
-                data.posts.forEach(post => displayPost(post));
-            } else {
-                console.error('Expected "posts" to be an array but got:', data.posts);
-            }
-        })
-        .catch(error => console.error('Error loading posts:', error));
+// Function to retrieve the information of the posts within a user from the API
+function loadUserPosts() {
+    const userId = getLocalStorageValue("userId");
+
+    fetch(loadUserPostsRoute, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (Array.isArray(data.posts)) {
+            data.posts.forEach(post => displayUserPost(post));
+        } else {
+            console.error('Expected "posts" to be an array but got:', data.posts);
+        }
+    })
+    .catch(error => console.error('Error loading posts:', error));
+}
+
+
+// Function to show posts from user coming from the API
+function displayUserPost(post) {
+    const cardsArea = document.querySelector('.userPostsArea');
+    if (!cardsArea) {
+        console.error('Element .userPostsArea not found');
+        return;
+    }
+
+    const cardHTML = `
+        <div class="flex justify-center mb-3">
+        <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl">
+            <div class="col-span-3 flex items-center justify-center px-3">
+            <div class="bg-white w-full h-5/6 rounded-xl flex items-center justify-center overflow-hidden">
+                <img src="${post.imageUrl}" alt="" class="object-cover h-full w-full">
+            </div>
+            </div>
+            <div class="col-span-3 flex flex-col justify-center px-3">
+            <p class="text-sm font-bold">${post.title}</p>
+            <p class="text-xs text-gray-600">Created in</p>
+            </div>
+            <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
+            <div class="editPostIcon">
+                <img class="w-7 h-7" src="../../Public/img/edit.svg" alt="">
+            </div>
+            <div class="deletePostIcon">
+                <img class="w-7 h-7 fill-red-600" src="../../Public/img/trashcan.svg" alt="">
+            </div>
+            </div>
+        </div>
+        </div>
+    `;
+
+    cardsArea.innerHTML += cardHTML;
 }
 
 // Function to delete a post by calling the API
@@ -86,16 +147,16 @@ function deletePost() {
         },
         body: JSON.stringify({ postId, imgName }), // NOMBRE DE LA IMAGEN SERÁ SACADO RECORTANDO URL
     })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Failed to delete post');
-    })
-    .then(data => {
-        console.log('Post deleted:', data);
-    })
-    .catch(error => {
-        console.error('Error deleting post:', error);
-    });
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Failed to delete post');
+        })
+        .then(data => {
+            console.log('Post deleted:', data);
+        })
+        .catch(error => {
+            console.error('Error deleting post:', error);
+        });
 }
