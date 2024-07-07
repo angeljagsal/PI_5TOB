@@ -125,9 +125,9 @@ function displayUserPost(post) {
             </div>
             <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
             <div class="editPostIcon">
-                <img class="w-7 h-7" src="../../Public/img/edit.svg" alt="">
+                <img class="ms-1 w-7 h-7" src="../../Public/img/edit.svg" alt="">
             </div>
-            <div class="deletePostIcon">
+            <div class="deletePostIcon" onclick="deletePost('${post.postId}')">
                 <img class="w-7 h-7 fill-red-600" src="../../Public/img/trashcan.svg" alt="">
             </div>
             </div>
@@ -139,13 +139,13 @@ function displayUserPost(post) {
 }
 
 // Function to delete a post by calling the API
-function deletePost() {
+function deletePost(postId) {
     fetch(deletePostRoute, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ postId, imgName }), // NOMBRE DE LA IMAGEN SERÁ SACADO RECORTANDO URL
+        body: JSON.stringify({ postId }),
     })
         .then(response => {
             if (response.ok) {
@@ -154,7 +154,9 @@ function deletePost() {
             throw new Error('Failed to delete post');
         })
         .then(data => {
+            alert('Post successfully deleted!')
             console.log('Post deleted:', data);
+            // loadUserPosts(); // Make page refresh without actually refreshing
         })
         .catch(error => {
             console.error('Error deleting post:', error);

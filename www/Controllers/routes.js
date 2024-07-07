@@ -12,4 +12,3 @@ const createPostRoute = env + "post"
 const deletePostRoute = env + "deletePost"
 const loadPostsRoute = env + "posts"
 const loadUserPostsRoute = env + "userPosts"
-
