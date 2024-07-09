@@ -52,7 +52,13 @@ function loadPosts() {
             if (Array.isArray(data.posts)) {
                 data.posts.forEach(post => displayPost(post));
             } else {
-                console.error('Expected "posts" to be an array but got:', data.posts);
+                var noPosts = `
+                    <div class="flex justify-center text-lg text-gray-500">
+                        <p>Nothing here...</p>
+                    </div>
+                `;
+
+                document.querySelector('.cardsArea').innerHTML += noPosts;
             }
         })
         .catch(error => console.error('Error loading posts:', error));
@@ -96,7 +102,13 @@ function loadUserPosts() {
             if (Array.isArray(data.posts)) {
                 data.posts.forEach(post => displayUserPost(post));
             } else {
-                console.error('Expected "posts" to be an array but got:', data.posts);
+                var noPosts = `
+                    <div class="flex justify-center mt-2 text-lg text-gray-500">
+                        <p>Nothing here...</p>
+                    </div>
+                `;
+
+                document.querySelector('.userPostsArea').innerHTML += noPosts;
             }
         })
         .catch(error => console.error('Error loading posts:', error));
@@ -150,21 +162,21 @@ function editPost(formData) {
         },
         body: JSON.stringify(formData),
     })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Failed to edit post');
-    })
-    .then(data => {
-        alert('Post successfully edited!')
-        console.log('Post edited:', data);
-        document.getElementById('userPostsArea').innerHTML = '';
-        loadUserPosts();
-    })
-    .catch(error => {
-        console.error('Error editing post:', error);
-    });
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Failed to edit post');
+        })
+        .then(data => {
+            alert('Post successfully edited!')
+            console.log('Post edited:', data);
+            document.getElementById('userPostsArea').innerHTML = '';
+            loadUserPosts();
+        })
+        .catch(error => {
+            console.error('Error editing post:', error);
+        });
 }
 
 // Function to delete a post by calling the API
@@ -176,19 +188,19 @@ function deletePost(postId) {
         },
         body: JSON.stringify({ postId }),
     })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Failed to delete post');
-    })
-    .then(data => {
-        alert('Post successfully deleted!')
-        console.log('Post deleted:', data);
-        document.getElementById('userPostsArea').innerHTML = '';
-        loadUserPosts();
-    })
-    .catch(error => {
-        console.error('Error deleting post:', error);
-    });
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Failed to delete post');
+        })
+        .then(data => {
+            alert('Post successfully deleted!')
+            console.log('Post deleted:', data);
+            document.getElementById('userPostsArea').innerHTML = '';
+            loadUserPosts();
+        })
+        .catch(error => {
+            console.error('Error deleting post:', error);
+        });
 }
