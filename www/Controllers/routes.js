@@ -9,6 +9,7 @@ const registerUserRoute = env + "register"
 
 // Post API
 const createPostRoute = env + "post"
+const editPostRoute = env + "editPost"
 const deletePostRoute = env + "deletePost"
 const loadPostsRoute = env + "posts"
 const loadUserPostsRoute = env + "userPosts"

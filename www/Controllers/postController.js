@@ -50,7 +50,7 @@ function loadPosts() {
         .then(res => res.json())
         .then(data => {
             if (Array.isArray(data.posts)) {
-                data.posts.forEach(post => displayPost(post)); 
+                data.posts.forEach(post => displayPost(post));
             } else {
                 console.error('Expected "posts" to be an array but got:', data.posts);
             }
@@ -91,15 +91,15 @@ function loadUserPosts() {
         },
         body: JSON.stringify({ userId })
     })
-    .then(res => res.json())
-    .then(data => {
-        if (Array.isArray(data.posts)) {
-            data.posts.forEach(post => displayUserPost(post));
-        } else {
-            console.error('Expected "posts" to be an array but got:', data.posts);
-        }
-    })
-    .catch(error => console.error('Error loading posts:', error));
+        .then(res => res.json())
+        .then(data => {
+            if (Array.isArray(data.posts)) {
+                data.posts.forEach(post => displayUserPost(post));
+            } else {
+                console.error('Expected "posts" to be an array but got:', data.posts);
+            }
+        })
+        .catch(error => console.error('Error loading posts:', error));
 }
 
 
@@ -121,13 +121,13 @@ function displayUserPost(post) {
             </div>
             <div class="col-span-3 flex flex-col justify-center px-3">
             <p class="text-sm font-bold">${post.title}</p>
-            <p class="text-xs text-gray-600">Created in</p>
+            <p class="text-xs text-gray-600">$${post.price}</p>
             </div>
             <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
-            <div class="editPostIcon">
+            <div class="editPostIcon" onclick="openModalEdit('${post.postId}')">
                 <img class="ms-1 w-7 h-7" src="../../Public/img/edit.svg" alt="">
             </div>
-            <div class="deletePostIcon" onclick="deletePost('${post.postId}')">
+            <div class="deletePostIcon" onclick="openModalDelete('${post.postId}')">
                 <img class="w-7 h-7 fill-red-600" src="../../Public/img/trashcan.svg" alt="">
             </div>
             </div>
@@ -136,6 +136,35 @@ function displayUserPost(post) {
     `;
 
     cardsArea.innerHTML += cardHTML;
+}
+
+// Clean user posts area
+function cleanUserPostsArea() {
+}
+
+function editPost(formData) {
+    fetch(editPostRoute, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to edit post');
+    })
+    .then(data => {
+        alert('Post successfully edited!')
+        console.log('Post edited:', data);
+        document.getElementById('userPostsArea').innerHTML = '';
+        loadUserPosts();
+    })
+    .catch(error => {
+        console.error('Error editing post:', error);
+    });
 }
 
 // Function to delete a post by calling the API
@@ -147,18 +176,19 @@ function deletePost(postId) {
         },
         body: JSON.stringify({ postId }),
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Failed to delete post');
-        })
-        .then(data => {
-            alert('Post successfully deleted!')
-            console.log('Post deleted:', data);
-            // loadUserPosts(); // Make page refresh without actually refreshing
-        })
-        .catch(error => {
-            console.error('Error deleting post:', error);
-        });
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to delete post');
+    })
+    .then(data => {
+        alert('Post successfully deleted!')
+        console.log('Post deleted:', data);
+        document.getElementById('userPostsArea').innerHTML = '';
+        loadUserPosts();
+    })
+    .catch(error => {
+        console.error('Error deleting post:', error);
+    });
 }
