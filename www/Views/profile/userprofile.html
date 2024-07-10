@@ -2,8 +2,8 @@
   <!-- TOP BAR -->
   <div class="grid grid-cols-3">
     <div class="arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
-      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-        stroke-width="1.5" stroke="currentColor">
+      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
       </svg>
     </div>
@@ -12,15 +12,15 @@
     </div>
   </div>
   <hr class="border border-gray-300 mt-6 mb-6 text-black">
-  <!-- USER INFORMATION -->
-  <div class="grid grid-cols-3">
-    <div class="pfp col-span-1 relative cursor-pointer">
-      <img class="rounded-lg" src="Public/img/elmopfp.webp" alt="">
-      <div class="absolute bottom-1 right-1 w-4 bg-gray-300 bg-opacity-50 rounded-md">
-        <img class="p-0.5" src="Public/img/camera.svg" alt="">
-      </div>
+  <!-- User information -->
+  <div class="grid grid-cols-3 items-center">
+    <!-- Image -->
+    <div class="pfp col-span-1 relative cursor-pointer w-28 h-28">
+      <img class="rounded-full w-full h-full object-cover shadow-md" src="" alt="Public/img/default-user.jpg" id="userImage">
+      <input type="file" id="fileInput" class="hidden">
     </div>
-    <div class="col-span-2 ms-4 flex flex-col items-start">
+    <!-- Information -->
+    <div class="col-span-2 ms-5 flex flex-col items-start">
       <div>
         <p id="displayUsername" class="text-lg font-semibold">Error</p>
         <p class="text-xs text-gray-500">Reynosa, Tamps</p>
@@ -38,15 +38,15 @@
           <img class="w-6" src="Public/img/heart.svg" alt="">
         </div>
       </div>
-      <div class="col-span-9 flex items-center">
+      <div class="col-span-9 flex items-center font-`">
         <p>Wishlist</p>
       </div>
       <div class="col-span-1 flex items-center">
         <img class="w-5" src="Public/img/rightArrow.svg" alt="">
       </div>
     </div>
-     <!-- Manage posts container -->
-     <div class="managePost grid grid-cols-12 mb-3 cursor-pointer">
+    <!-- Manage posts container -->
+    <div class="managePost grid grid-cols-12 mb-3 cursor-pointer">
       <div class="col-span-2 ms-1">
         <div class="bg-gray-100 w-fit p-1 rounded-lg">
           <img class="w-6" src="Public/img/userEdit.svg" alt="">
@@ -95,14 +95,26 @@
   </div>
 </div>
 
-<div class="flex justify-center mt-20">
-  <button type="button" id="logOutBtn" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 font-bold">
-    Log out
-  </button>
+<!-- Logout button -->
+<div class="mt-6 mx-8">
+  <p class="mb-6 text-sm text-gray-600">Options</p>
+  <!-- Wishlist container -->
+  <div id="logOutBtn" class="grid grid-cols-12 mb-3 cursor-pointer">
+    <div class="col-span-2 ms-1">
+      <div class="bg-gray-100 w-fit p-1 rounded-lg">
+        <img class="w-6" src="Public/img/logout.svg" alt="">
+      </div>
+    </div>
+    <div class="col-span-9 flex items-center text-red-600 font-semibold">
+      <p>Logout</p>
+    </div>
+    <div class="col-span-1 flex items-center">
+      <img class="w-5" src="Public/img/rightArrow.svg" alt="">
+    </div>
+  </div>
 </div>
 
-<!-- LOWER NAVBAR - If possible, try to make this navbar in a separate file to just connect -->
-
+<!-- Lower navbar -->
 <nav class="absolute bottom-0 right-0 left-0 w-full overflow-hidden h-16 bg-white shadow-inner rounded-t-lg">
   <div class="flex justify-center items-center mt-5">
     <div class="homeIcon w-1/4 flex flex-col items-center justify-center">
@@ -123,35 +135,53 @@
 <script src="../../Controllers/userControllers.js "></script>
 
 <script>
+  var userId = getLocalStorageValue("userId");
+  if(!userId) {
+    LoadPartialView('login', document.querySelector('.app'))
+  }
+
+  document.getElementById('userImage').addEventListener('click', function () {
+    document.getElementById('fileInput').click();
+  });
+
+  var userId = getLocalStorageValue("userId");
+  var newImage = null;
+
+  document.getElementById('fileInput').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      newImage = file;
+      changeProfileImg(userId, newImage);
+    }
+  });
+
+  // Display user picture
+  document.getElementById('userImage').src = getLocalStorageValue("profileImg")
+
   // Display username in top of user profile
   document.getElementById('displayUsername').textContent = getLocalStorageValue("username");
 
   // Arrow back to home
-  document.querySelector('.arrowBack').addEventListener('click', function() {
+  document.querySelector('.arrowBack').addEventListener('click', function () {
     LoadPartialView('homepage', document.querySelector('.app'))
-  })
-
-  // Change profile picture
-  document.querySelector('.pfp').addEventListener('click', function() {
-    LoadPartialView('userprofile', document.querySelector('.app'))
   })
 
   // View change functionality
-  document.querySelector('.managePost').addEventListener('click', function() {
+  document.querySelector('.managePost').addEventListener('click', function () {
     LoadPartialView('profile/user_posts', document.querySelector('.app'))
   })
-  document.querySelector('.homeIcon').addEventListener('click', function() {
+  document.querySelector('.homeIcon').addEventListener('click', function () {
     LoadPartialView('homepage', document.querySelector('.app'))
   })
-  document.querySelector('.likedIcon').addEventListener('click', function() {
+  document.querySelector('.likedIcon').addEventListener('click', function () {
     LoadPartialView('404error', document.querySelector('.app'))
   })
-  document.querySelector('.mapIcon').addEventListener('click', function() {
-    LoadPartialView('404error', document.querySelector('.app'))
+  document.querySelector('.mapIcon').addEventListener('click', function () {
+    LoadPartialView('map', document.querySelector('.app'))
   })
 
   // Log out button handling
-  document.getElementById('logOutBtn').addEventListener('click', function() {
+  document.getElementById('logOutBtn').addEventListener('click', function () {
     logout();
     LoadPartialView('login', document.querySelector('.app'))
   })

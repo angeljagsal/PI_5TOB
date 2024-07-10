@@ -1,6 +1,10 @@
 document.getElementById("registerForm").addEventListener("submit", function(event) {
   event.preventDefault();
 
+  const formBtn = document.getElementById('formBtn');
+  formBtn.disabled = true;
+  formBtn.innerText = 'Processing...';
+
   const username = document.getElementById('username').value;
   const email = document.getElementById('emailAddress').value;
   const password = document.getElementById('password').value;
@@ -8,6 +12,8 @@ document.getElementById("registerForm").addEventListener("submit", function(even
   // Basic client-side validation
   if (!username || !email || !password) {
       alert("Please fill in all fields.");
+      formBtn.disabled = false;
+      formBtn.innerText = 'Register';
       return;
   }
 

@@ -28,6 +28,7 @@ async function login(email, password) {
             saveLocalStorageValue("email", data.user.email);
             const postsJson = JSON.stringify(data.user.posts);
             saveLocalStorageValue("posts", postsJson);
+            saveLocalStorageValue("profileImg", data.user.profileImg);
 
             // Change partial view
             LoadPartialView('homepage', document.querySelector('.app'));

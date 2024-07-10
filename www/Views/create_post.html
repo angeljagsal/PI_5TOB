@@ -50,6 +50,8 @@
 
     if (!title || !desc || !price || !imgFile) {
       alert("All fields must be properly filled.");
+      formBtn.disabled = false;
+      formBtn.innerText = 'Create';
       return;
     } else {
       createPost(title, desc, price, imgFile);

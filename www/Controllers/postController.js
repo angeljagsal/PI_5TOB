@@ -162,21 +162,21 @@ function editPost(formData) {
         },
         body: JSON.stringify(formData),
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Failed to edit post');
-        })
-        .then(data => {
-            alert('Post successfully edited!')
-            console.log('Post edited:', data);
-            document.getElementById('userPostsArea').innerHTML = '';
-            loadUserPosts();
-        })
-        .catch(error => {
-            console.error('Error editing post:', error);
-        });
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to edit post');
+    })
+    .then(data => {
+        alert('Post successfully edited!')
+        console.log('Post edited:', data);
+        document.getElementById('userPostsArea').innerHTML = '';
+        loadUserPosts();
+    })
+    .catch(error => {
+        console.error('Error editing post:', error);
+    });
 }
 
 // Function to delete a post by calling the API
