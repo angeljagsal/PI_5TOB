@@ -136,7 +136,7 @@
 
 <script>
   var userId = getLocalStorageValue("userId");
-  if(!userId) {
+  if (!userId) {
     alert('Log in to manage your profile!')
     LoadPartialView('user/login', document.querySelector('.app'))
   }
