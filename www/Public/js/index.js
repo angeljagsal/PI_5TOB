@@ -27,6 +27,8 @@ function LoadPartialView(viewName, divClass = null) {
         method: 'GET',
         success: function (data) {
             $(divClass).html(data);
+            const event = new Event('PartialViewLoaded');
+            document.dispatchEvent(event);
         },
         error: function (xhr, status, error) {
             console.error('Error al cargar la vista parcial:', error)

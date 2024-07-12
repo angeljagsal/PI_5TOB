@@ -47,21 +47,27 @@ async function createPost(title, desc, price, imgFile) {
 // Function to retrieve the information of the posts from the API
 function loadPosts() {
     fetch(loadPostsRoute)
-        .then(res => res.json())
-        .then(data => {
-            if (Array.isArray(data.posts)) {
-                data.posts.forEach(post => displayPost(post));
-            } else {
-                var noPosts = `
-                    <div class="flex justify-center text-lg text-gray-500">
-                        <p>Nothing here...</p>
-                    </div>
-                `;
+    .then(res => res.json())
+    .then(data => {
+        if (Array.isArray(data.posts)) {
+            data.posts.forEach(post => displayPost(post));
+        } else {
+            var noPosts = `
+                <div class="flex justify-center text-lg text-gray-500">
+                    <p>Nothing here...</p>
+                </div>
+            `;
 
-                document.querySelector('.cardsArea').innerHTML += noPosts;
-            }
-        })
-        .catch(error => console.error('Error loading posts:', error));
+            document.querySelector('.cardsArea').innerHTML += noPosts;
+        }
+    })
+    .catch(error => console.error('Error loading posts:', error));
+}
+
+// Function for displayPost usage
+function loadPostViewAndInfo(postId) {
+    LoadPartialView('homepage/post_info', document.querySelector('.app'));
+    retrievePostInformation(postId);
 }
 
 // Function to show posts coming from the API
@@ -85,7 +91,7 @@ function displayPost(post) {
         <div class="cards-wrapper flex justify-center mb-3">
             <div class="card w-10/12">
                 <div class="relative">
-                    <div class="aspect-w-1 aspect-h-1">
+                    <div class="aspect-w-1 aspect-h-1" onclick="loadPostViewAndInfo('${post.postId}')">
                         <div class="bg-black w-full h-full rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
                     </div>
                     <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer" onclick="${heartIconOnClick}">
@@ -170,21 +176,21 @@ function editPost(formData) {
         },
         body: JSON.stringify(formData),
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Failed to edit post');
-        })
-        .then(data => {
-            alert('Post successfully edited!')
-            console.log('Post edited:', data);
-            document.getElementById('userPostsArea').innerHTML = '';
-            loadUserPosts();
-        })
-        .catch(error => {
-            console.error('Error editing post:', error);
-        });
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to edit post');
+    })
+    .then(data => {
+        alert('Post successfully edited!')
+        console.log('Post edited:', data);
+        document.getElementById('userPostsArea').innerHTML = '';
+        loadUserPosts();
+    })
+    .catch(error => {
+        console.error('Error editing post:', error);
+    });
 }
 
 // Function to delete a post by calling the API
@@ -196,19 +202,54 @@ function deletePost(postId) {
         },
         body: JSON.stringify({ postId }),
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Failed to delete post');
-        })
-        .then(data => {
-            alert('Post successfully deleted!')
-            console.log('Post deleted:', data);
-            document.getElementById('userPostsArea').innerHTML = '';
-            loadUserPosts();
-        })
-        .catch(error => {
-            console.error('Error deleting post:', error);
-        });
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to delete post');
+    })
+    .then(data => {
+        alert('Post successfully deleted!')
+        console.log('Post deleted:', data);
+        document.getElementById('userPostsArea').innerHTML = '';
+        loadUserPosts();
+    })
+    .catch(error => {
+        console.error('Error deleting post:', error);
+    });
+}
+
+function retrievePostInformation(postId) {
+    fetch(retrievePostInfo, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId }),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Failed to retrieve information');
+    })
+    .then(data => {
+        // Extract all data
+        const price = data.post[0].price;
+        const imageUrl = data.post[0].imageUrl;
+        const postId = data.post[0].postId;
+        const title = data.post[0].title;
+        const desc = data.post[0].desc;
+        const creator = data.user[0].username;
+        const creatorImg = data.user[0].userImg;
+        
+        // Display data
+        document.getElementById('bgImg').style.backgroundImage = `url('${imageUrl}')`;
+        document.getElementById('title').innerHTML = title;
+        document.getElementById('price').innerHTML = price;
+        document.getElementById('desc').innerHTML = desc;
+        document.getElementById('creator').innerHTML = creator;
+        document.getElementById('userImg').style.backgroundImage = `url('${creatorImg}')`;
+    })
+    .catch(error => console.error('Error:', error));
 }
