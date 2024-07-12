@@ -1,7 +1,7 @@
 const local_server = "http://localhost:6969/api/"
 const public_server = "https://travelapp-api.vercel.app/api/"
 
-const env = local_server
+const env = public_server
 
 // User API
 const loginUserRoute = env + "login"

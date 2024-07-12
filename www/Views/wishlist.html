@@ -42,6 +42,14 @@
 <script src="../Controllers/userControllers.js"></script>
 
 <script>
+  // Manage users without account
+  var userId = getLocalStorageValue("userId");
+  if(!userId) {
+    alert('Log in to add your favorite posts to your wishlist!')
+    LoadPartialView('login', document.querySelector('.app'))
+  }
+
+  // Load all posts a user has liked
   loadUserLikes();
 
   // View change functionality

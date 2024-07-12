@@ -72,18 +72,22 @@ function displayPost(post) {
         return;
     }
 
-    // Obtener los likes del usuario del localStorage
     var userLikes = getLocalStorageValue('likes') || [];
 
-    // Determinar si el post actual está en la lista de likes del usuario
     const heartIcon = userLikes.includes(post.postId) ? "../Public/img/full-red-heart.svg" : "../Public/img/heart.svg";
-    const heartIconOnClick = userLikes.includes(post.postId) ? `dislikePost('${post.postId}')` : `likePost('${post.postId}')`;
+    var heartIconOnClick = userLikes.includes(post.postId) ? `dislikePost('${post.postId}')` : `likePost('${post.postId}')`;
+
+    if(!userId) {
+        var heartIconOnClick = `LoadPartialView('login', document.querySelector('.app'))`;
+    }
 
     const cardHTML = `
         <div class="cards-wrapper flex justify-center mb-3">
             <div class="card w-10/12">
                 <div class="relative">
-                    <div class="bg-black w-full h-80 rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
+                    <div class="aspect-w-1 aspect-h-1">
+                        <div class="bg-black w-full h-full rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
+                    </div>
                     <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer" onclick="${heartIconOnClick}">
                         <img class="w-6" src="${heartIcon}" alt="">
                     </div>
@@ -92,8 +96,7 @@ function displayPost(post) {
                 <p class="text-xs text-gray-600">${post.desc || 'No desc'}</p>
                 <p class="text-xs text-gray-600">${post.price} MXN</p>
             </div>
-        </div>
-    `;
+        </div>`;
 
     cardsArea.innerHTML += cardHTML;
 }
