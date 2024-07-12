@@ -29,7 +29,7 @@ async function createPost(title, desc, price, imgFile) {
 
                 posts.push(postId)
 
-                saveLocalStorageValue("posts", JSON.stringify(posts));
+                saveLocalStorageValue("posts", JSON.stringify(posts))
             } saveNewPostId(data.post.postId);
 
             alert('Post successfully created!')
@@ -72,18 +72,25 @@ function displayPost(post) {
         return;
     }
 
+    // Obtener los likes del usuario del localStorage
+    var userLikes = getLocalStorageValue('likes') || [];
+
+    // Determinar si el post actual está en la lista de likes del usuario
+    const heartIcon = userLikes.includes(post.postId) ? "../Public/img/full-red-heart.svg" : "../Public/img/heart.svg";
+    const heartIconOnClick = userLikes.includes(post.postId) ? `dislikePost('${post.postId}')` : `likePost('${post.postId}')`;
+
     const cardHTML = `
         <div class="cards-wrapper flex justify-center mb-3">
             <div class="card w-10/12">
-            <div class="relative">
-                <div class="bg-black w-full h-80 rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
-                <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer" onclick="likePost('${post.postId}')"> 
-                <img class="w-6" src="../Public/img/heart.svg" alt="">
+                <div class="relative">
+                    <div class="bg-black w-full h-80 rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
+                    <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer" onclick="${heartIconOnClick}">
+                        <img class="w-6" src="${heartIcon}" alt="">
+                    </div>
                 </div>
-            </div>
-            <p class="text-xs mt-2">${post.title}</p>
-            <p class="text-xs text-gray-600">${post.desc || 'No desc'}</p>
-            <p class="text-xs text-gray-600">${post.price} MXN</p>
+                <p class="text-xs mt-2">${post.title}</p>
+                <p class="text-xs text-gray-600">${post.desc || 'No desc'}</p>
+                <p class="text-xs text-gray-600">${post.price} MXN</p>
             </div>
         </div>
     `;

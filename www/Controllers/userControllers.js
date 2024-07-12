@@ -2,7 +2,8 @@ function logout() {
   removeLocalStorageValue("userId")
   removeLocalStorageValue("username")
   removeLocalStorageValue("email")
-  removeLocalStorageValue("posts")
+  removeLocalStorageValue("likes")
+  // removeLocalStorageValue("posts")
   removeLocalStorageValue("profileImg")
 }
 
@@ -17,22 +18,22 @@ function changeProfileImg(userId, newImage) {
     method: 'POST',
     body: formData
   })
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    }
-    throw new Error('Failed changing picture');
-  })
-  .then(data => {
-    var userImgUrl = data.userImgUrl;
-    saveLocalStorageValue("profileImg", userImgUrl)
-    document.getElementById('userImage').src = getLocalStorageValue("profileImg")
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Failed changing picture');
+    })
+    .then(data => {
+      var userImgUrl = data.userImgUrl;
+      saveLocalStorageValue("profileImg", userImgUrl)
+      document.getElementById('userImage').src = getLocalStorageValue("profileImg")
 
-    alert('Picture successfully updated!');
-  })
-  .catch(error => {
-    console.error('Error updating picture:', error);
-  });
+      alert('Picture successfully updated!');
+    })
+    .catch(error => {
+      console.error('Error updating picture:', error);
+    });
 }
 
 function likePost(postId) {
@@ -43,9 +44,20 @@ function likePost(postId) {
     },
     body: JSON.stringify({ userId, postId })
   })
-  .catch(err => {
-    console.error('Error:', err);
-  });
+    .then(response => {
+      var likes = JSON.parse(localStorage.getItem('likes') || '[]');
+
+      if (!likes.includes(postId)) {
+        likes.push(postId);
+        localStorage.setItem('likes', JSON.stringify(likes));
+      }
+
+      document.getElementById('cardsArea').innerHTML = '';
+      loadPosts();
+    })
+    .catch(err => {
+      console.error('Error:', err);
+    });
 }
 
 function dislikePost(postId) {
@@ -56,15 +68,38 @@ function dislikePost(postId) {
     },
     body: JSON.stringify({ userId, postId })
   })
-  .then(response => {
-    if (response.ok) {
-      document.getElementById('userLikesArea').innerHTML = '';
-      loadUserLikes();
-    }
-  })
-  .catch(err => {
-    console.error('Error:', err)
-  });
+    .then(response => {
+      if (response.ok) {
+        // Clear and reload user likes displayed
+        var userLikesArea = document.getElementById('userLikesArea')
+
+        if(userLikesArea){
+          userLikesArea.innerHTML = '';
+          loadUserLikes();
+        }
+        
+        // Remove postId from localStorage
+        var likes = JSON.parse(localStorage.getItem('likes') || '[]');
+        const index = likes.indexOf(postId);
+        if (index !== -1) {
+          likes.splice(index, 1);
+          saveLocalStorageValue('likes', JSON.stringify(likes));
+        }
+
+        var cardsArea = document.getElementById('cardsArea')
+
+        if(cardsArea){
+          cardsArea.innerHTML = '';
+          loadPosts();
+        }
+
+      } else {
+        console.log('Failed to remove like from the server.');
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+    });
 }
 
 function loadUserLikes() {
@@ -75,30 +110,28 @@ function loadUserLikes() {
     },
     body: JSON.stringify({ userId })
   })
-  .then(res => res.json())
-  .then(data => {
-    const userLikesArea = document.getElementById('userLikesArea');
-    userLikesArea.innerHTML = '';
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data.posts) && data.posts.length > 0) {
+        data.posts.forEach(post => displayUserLike(post));
+      } else {
+        var noPosts = `
+              <div class="flex justify-center mt-2 text-lg text-gray-500">
+                  <p>Nothing here...</p>
+              </div>
+          `;
 
-    if (Array.isArray(data.posts) && data.posts.length > 0) {
-      data.posts.forEach(post => displayUserLike(post));
-    } else {
-      const noPosts = `
-        <div class="flex justify-center mt-2 text-lg text-gray-500">
-          <p>Nothing here...</p>
-        </div>
-      `;
-      userLikesArea.innerHTML = noPosts;
-    }
-  })
-  .catch(error => console.error('Error loading posts:', error));
+        document.querySelector('.userLikesArea').innerHTML += noPosts;
+      }
+    })
+    .catch(error => console.error('Error loading posts:', error));
 }
 
 function displayUserLike(post) {
   const cardsArea = document.querySelector('.userLikesArea');
   if (!cardsArea) {
-      console.error('Element .userLikesArea not found');
-      return;
+    console.error('Element .userLikesArea not found');
+    return;
   }
 
   const cardHTML = `
@@ -113,7 +146,7 @@ function displayUserLike(post) {
         </div>
         <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
           <div class="cursor-pointer" onclick="dislikePost('${post.postId}')">
-            <img class="ms-1 w-7 h-7" src="../Public/img/full-red-hearth.svg" alt="">
+            <img class="ms-1 w-7 h-7" src="../Public/img/full-red-heart.svg" alt="">
           </div>
         </div>
       </div>

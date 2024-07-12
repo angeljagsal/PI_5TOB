@@ -21,14 +21,15 @@ async function login(email, password) {
 
         if (response.ok) {
             console.table(data);
-
             // Save user data within local storage
             saveLocalStorageValue("userId", data.user.id);
             saveLocalStorageValue("username", data.user.username);
             saveLocalStorageValue("email", data.user.email);
-            const postsJson = JSON.stringify(data.user.posts);
-            saveLocalStorageValue("posts", postsJson);
+            const likesJSON = JSON.stringify(data.user.likes);
+            saveLocalStorageValue("likes", likesJSON);
             saveLocalStorageValue("profileImg", data.user.profileImg);
+            // const postsJson = JSON.stringify(data.user.posts);
+            // saveLocalStorageValue("posts", postsJson);
 
             // Change partial view
             LoadPartialView('homepage', document.querySelector('.app'));
