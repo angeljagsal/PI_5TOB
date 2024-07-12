@@ -1,41 +1,101 @@
-<div class="p-8">
-  <div class="arrowBack flex mb-16 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
-    <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-      stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-    </svg>
+<div class="m-8">
+  <!-- Top section -->
+  <div class="grid grid-cols-3">
+    <div class="arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
+      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    </div>
+    <div class="flex justify-center items-center m-0 p-0 col-span-1">
+      <h1 class="text-xl text-gray-800 font-semibold">Post</h1>
+    </div>
   </div>
-  <div class="flex justify-center pb-3">
-    <h1 class="font-bold text-2xl">Create Your Own Post!</h1>
-  </div>
-  <div class="flex justify-center">
-    <form id="postForm" enctype="multipart/form-data">
-      <div>
-        <div class="my-2 border-2 rounded-md py-1 px-3 text-sm">
-          <input id="title" name="title" type="text" placeholder="Title" class="outline-none">
+  <hr class="border border-gray-300 mt-6 mb-6 text-black">
+  
+  <!-- Content -->
+   <div>
+      <!-- Information form  -->
+     <form id="postForm" enctype="multipart/form-data">
+        <!-- Upload image -->
+        <div class="flex items-center">
+          <!-- Image Preview -->
+          <img id="imgPreview" src="#" alt="Image Preview" class="hidden w-24 h-24 rounded-xl object-cover mr-4 shadow-md">
+          <!-- Image Upload Button -->
+          <div id="openImgExplorer" class="flex justify-center items-center w-24 h-24 border-4 border-dotted rounded-xl cursor-pointer">
+            <img src="Public/img/plus.svg" alt="Add Image">
+          </div>
         </div>
-        <div class="my-2 border-2 rounded-md py-1 px-3 text-sm">
-          <input id="desc" name="desc" type="text" placeholder="Description" class="outline-none">
+        <!-- Hidden file input -->
+        <input id="img" name="img" type="file" accept="image/jpeg, image/png" class="hidden">
+        <!-- Title -->
+        <div class="mt-6">
+          <label class="block font-semibold text-lg" for="title"> Title </label>
+          <input class="bg-gray-200 w-full py-3 px-5 mt-3 rounded-2xl shadow-sm outline-none" type="text" id="title" name="title" placeholder="e.g. Viaje por todo París">
         </div>
-        <div class="my-2 border-2 rounded-md py-1 px-3 text-sm">
-          <input id="price" name="price" type="text" placeholder="Price" class="outline-none">
+        <!-- Price -->
+        <div class="mt-5">
+          <label class="block font-semibold text-lg" for="title"> Price </label>
+          <input class="bg-gray-200 w-full py-3 px-5 mt-3 rounded-2xl shadow-sm outline-none" type="text" id="price" name="price" placeholder="e.g. 5999">
         </div>
-        <!-- Image input -->
-        <div id="openImgExplorer" class="flex justify-center my-2 border-2 rounded-md py-10 px-1.5 text-sm cursor-pointer">
-          <input id="img" name="img" type="file" accept="image/jpeg, image/png">
+        <!-- Caption -->
+        <div class="mt-5">
+          <label class="block font-semibold text-lg" for="title"> Description </label>
+          <textarea class="bg-gray-200 w-full py-3 px-5 mt-3 rounded-2xl shadow-sm outline-none resize-none" id="desc" name="desc" placeholder="Type here..." rows="5"></textarea>
         </div>
-        <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
-          <button id="formBtn" class="text-sm text-white font-semibold py-2 w-full" type="submit">Create</button>
+        <!-- Location -->
+        <div class="mt-5">
+          <div class="wishlist grid grid-cols-12 mb-3 cursor-pointer">
+            <div class="col-span-2">
+              <div class="bg-gray-100 w-fit p-1 rounded-lg">
+                <img class="w-8" src="Public/img/map-pin.svg" alt="">
+              </div>
+            </div>
+            <div class="col-span-9 flex items-center font-semibold text-lg">
+              <p>Location</p>
+            </div>
+            <div class="col-span-1 flex items-center">
+              <img class="w-5" src="Public/img/rightArrow.svg" alt="">
+            </div>
+          </div>
         </div>
-      </div>
-    </form>
-  </div>
+        <!-- Submit button -->
+        <div class="mt-12">
+          <button id="formBtn" type="submit" class="w-full rounded-2xl bg-blue-600 text-white p-2.5 text-lg font-bold">Post</button>
+        </div>
+      </form>
+   </div>
 </div>
 
 <script src="../Controllers/postController.js"></script>
 
 <script>
-  document.getElementById('postForm').addEventListener('submit', function (event) {
+document.getElementById('openImgExplorer').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.getElementById('img').click();
+});
+
+document.getElementById('img').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imgPreview = document.getElementById('imgPreview');
+            imgPreview.src = e.target.result;
+            imgPreview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('imgPreview').addEventListener('click', function() {
+    this.classList.add('hidden');
+    this.src = '#';
+    document.getElementById('img').value = '';
+    alert('Image removed. You can upload another.');
+});
+
+document.getElementById('postForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const formBtn = document.getElementById('formBtn');
@@ -49,17 +109,17 @@
     const imgFile = imgInput.files[0];
 
     if (!title || !desc || !price || !imgFile) {
-      alert("All fields must be properly filled.");
-      formBtn.disabled = false;
-      formBtn.innerText = 'Create';
-      return;
+        alert("All fields must be properly filled.");
+        formBtn.disabled = false;
+        formBtn.innerText = 'Create';
+        return;
     } else {
-      createPost(title, desc, price, imgFile);
+        createPost(title, desc, price, imgFile);
     }
-  })
+});
 
-  // Arrow back functionality
-  document.querySelector('.arrowBack').addEventListener('click', function () {
+// Arrow back functionality
+document.querySelector('.arrowBack').addEventListener('click', function () {
     LoadPartialView('homepage', document.querySelector('.app'))
-  })
+});
 </script>
