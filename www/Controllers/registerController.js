@@ -1,6 +1,10 @@
 document.getElementById("registerForm").addEventListener("submit", function(event) {
   event.preventDefault();
 
+  const formBtn = document.getElementById('formBtn');
+  formBtn.disabled = true;
+  formBtn.innerText = 'Processing...';
+
   const username = document.getElementById('username').value;
   const email = document.getElementById('emailAddress').value;
   const password = document.getElementById('password').value;
@@ -8,6 +12,8 @@ document.getElementById("registerForm").addEventListener("submit", function(even
   // Basic client-side validation
   if (!username || !email || !password) {
       alert("Please fill in all fields.");
+      formBtn.disabled = false;
+      formBtn.innerText = 'Register';
       return;
   }
 
@@ -34,7 +40,7 @@ document.getElementById("registerForm").addEventListener("submit", function(even
 
 async function register(username, email, password) {
   try {
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch(registerUserRoute, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'

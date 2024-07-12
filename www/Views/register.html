@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
-        <button class="text-sm text-white font-semibold py-2" type="submit">Sign Up</button>
+        <button id="formBtn" class="text-sm text-white font-semibold py-2" type="submit">Sign Up</button>
       </div>
     </form>
   </div>
@@ -49,10 +49,10 @@
   </div>
 </div>
 
-<script src="/www/Controllers/registerController.js"></script>
+<script src="../Controllers/registerController.js"></script>
 
 <script>
   document.querySelector('.arrowBack').addEventListener('click', function() {
-    LoadPartialView('login', document.querySelector('.app'))
+    LoadPartialView('homepage', document.querySelector('.app'))
   })
 </script>
