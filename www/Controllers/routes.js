@@ -6,7 +6,9 @@ const env = local_server
 // User API
 const loginUserRoute = env + "login"
 const registerUserRoute = env + "register"
-const uploadProfileImg = env + "uploadImg"
+const uploadProfileImgRoute = env + "uploadImg"
+const createUserLikeRelationRoute = env + "like"
+const retrieveUserLikesRoute = env + "likes"
 
 // Post API
 const createPostRoute = env + "post"

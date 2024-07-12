@@ -32,7 +32,7 @@
   <div class="mt-12">
     <p class="mb-6 text-sm text-gray-600">My stuff</p>
     <!-- Wishlist container -->
-    <div class="grid grid-cols-12 mb-3 cursor-pointer">
+    <div class="wishlist grid grid-cols-12 mb-3 cursor-pointer">
       <div class="col-span-2 ms-1">
         <div class="bg-gray-100 w-fit p-1 rounded-lg">
           <img class="w-6" src="Public/img/heart.svg" alt="">
@@ -170,11 +170,14 @@
   document.querySelector('.managePost').addEventListener('click', function () {
     LoadPartialView('profile/user_posts', document.querySelector('.app'))
   })
+  document.querySelector('.wishlist').addEventListener('click', function () {
+    LoadPartialView('wishlist', document.querySelector('.app'))
+  })
   document.querySelector('.homeIcon').addEventListener('click', function () {
     LoadPartialView('homepage', document.querySelector('.app'))
   })
   document.querySelector('.likedIcon').addEventListener('click', function () {
-    LoadPartialView('404error', document.querySelector('.app'))
+    LoadPartialView('wishlist', document.querySelector('.app'))
   })
   document.querySelector('.mapIcon').addEventListener('click', function () {
     LoadPartialView('map', document.querySelector('.app'))

@@ -75,10 +75,15 @@ function displayPost(post) {
     const cardHTML = `
         <div class="cards-wrapper flex justify-center mb-3">
             <div class="card w-10/12">
+            <div class="relative">
                 <div class="bg-black w-full h-80 rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
-                <p class="text-xs mt-2">${post.title}</p>
-                <p class="text-xs text-gray-600">${post.desc || 'No desc'}</p>
-                <p class="text-xs text-gray-600">${post.price} MXN</p>
+                <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg" onclick="likePost('${post.postId}')"> 
+                <img class="w-6" src="../Public/img/heart.svg" alt="">
+                </div>
+            </div>
+            <p class="text-xs mt-2">${post.title}</p>
+            <p class="text-xs text-gray-600">${post.desc || 'No desc'}</p>
+            <p class="text-xs text-gray-600">${post.price} MXN</p>
             </div>
         </div>
     `;
@@ -97,21 +102,21 @@ function loadUserPosts() {
         },
         body: JSON.stringify({ userId })
     })
-        .then(res => res.json())
-        .then(data => {
-            if (Array.isArray(data.posts)) {
-                data.posts.forEach(post => displayUserPost(post));
-            } else {
-                var noPosts = `
-                    <div class="flex justify-center mt-2 text-lg text-gray-500">
-                        <p>Nothing here...</p>
-                    </div>
-                `;
+    .then(res => res.json())
+    .then(data => {
+        if (Array.isArray(data.posts)) {
+            data.posts.forEach(post => displayUserPost(post));
+        } else {
+            var noPosts = `
+                <div class="flex justify-center mt-2 text-lg text-gray-500">
+                    <p>Nothing here...</p>
+                </div>
+            `;
 
-                document.querySelector('.userPostsArea').innerHTML += noPosts;
-            }
-        })
-        .catch(error => console.error('Error loading posts:', error));
+            document.querySelector('.userPostsArea').innerHTML += noPosts;
+        }
+    })
+    .catch(error => console.error('Error loading posts:', error));
 }
 
 
@@ -125,33 +130,26 @@ function displayUserPost(post) {
 
     const cardHTML = `
         <div class="flex justify-center mb-3">
-        <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl">
+            <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl">
             <div class="col-span-3 flex items-center justify-center px-3">
-            <div class="bg-white w-full h-5/6 rounded-xl flex items-center justify-center overflow-hidden">
-                <img src="${post.imageUrl}" alt="" class="object-cover h-full w-full">
-            </div>
+                <div class="bg-white w-full h-5/6 rounded-xl flex items-center justify-center overflow-hidden" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
             </div>
             <div class="col-span-3 flex flex-col justify-center px-3">
-            <p class="text-sm font-bold">${post.title}</p>
-            <p class="text-xs text-gray-600">$${post.price}</p>
+                <p class="text-sm font-bold">${post.title}</p>
+                <p class="text-xs text-gray-600">$${post.price}</p>
             </div>
             <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
-            <div class="editPostIcon" onclick="openModalEdit('${post.postId}')">
+                <div class="editPostIcon" onclick="openModalEdit('${post.postId}')">
                 <img class="ms-1 w-7 h-7" src="../../Public/img/edit.svg" alt="">
-            </div>
-            <div class="deletePostIcon" onclick="openModalDelete('${post.postId}')">
+                </div>
+                <div class="deletePostIcon" onclick="openModalDelete('${post.postId}')">
                 <img class="w-7 h-7 fill-red-600" src="../../Public/img/trashcan.svg" alt="">
+                </div>
             </div>
             </div>
-        </div>
-        </div>
-    `;
+        </div>`;
 
     cardsArea.innerHTML += cardHTML;
-}
-
-// Clean user posts area
-function cleanUserPostsArea() {
 }
 
 function editPost(formData) {
@@ -162,21 +160,21 @@ function editPost(formData) {
         },
         body: JSON.stringify(formData),
     })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Failed to edit post');
-    })
-    .then(data => {
-        alert('Post successfully edited!')
-        console.log('Post edited:', data);
-        document.getElementById('userPostsArea').innerHTML = '';
-        loadUserPosts();
-    })
-    .catch(error => {
-        console.error('Error editing post:', error);
-    });
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Failed to edit post');
+        })
+        .then(data => {
+            alert('Post successfully edited!')
+            console.log('Post edited:', data);
+            document.getElementById('userPostsArea').innerHTML = '';
+            loadUserPosts();
+        })
+        .catch(error => {
+            console.error('Error editing post:', error);
+        });
 }
 
 // Function to delete a post by calling the API
