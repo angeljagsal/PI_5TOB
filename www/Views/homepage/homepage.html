@@ -59,13 +59,13 @@
 
   // View change functionality
   document.querySelector('.addPost').addEventListener('click', function () {
-    LoadPartialView('create_post', document.querySelector('.app'))
+    LoadPartialView('profile/create_post', document.querySelector('.app'))
   })
   document.querySelector('.likedIcon').addEventListener('click', function () {
-    LoadPartialView('wishlist', document.querySelector('.app'))
+    LoadPartialView('wishlist/wishlist', document.querySelector('.app'))
   })
   document.querySelector('.mapIcon').addEventListener('click', function () {
-    LoadPartialView('map', document.querySelector('.app'))
+    LoadPartialView('map/map', document.querySelector('.app'))
   })
   document.querySelector('.userIcon').addEventListener('click', function () {
     LoadPartialView('profile/userprofile', document.querySelector('.app'))

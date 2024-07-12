@@ -32,7 +32,7 @@ async function login(email, password) {
             // saveLocalStorageValue("posts", postsJson);
 
             // Change partial view
-            LoadPartialView('homepage', document.querySelector('.app'));
+            LoadPartialView('homepage/homepage', document.querySelector('.app'));
         } else {
             console.error('Login failed:', data.message);
             alert('Error al iniciar sesión: ' + data.message);

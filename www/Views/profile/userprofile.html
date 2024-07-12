@@ -138,7 +138,7 @@
   var userId = getLocalStorageValue("userId");
   if(!userId) {
     alert('Log in to manage your profile!')
-    LoadPartialView('login', document.querySelector('.app'))
+    LoadPartialView('user/login', document.querySelector('.app'))
   }
 
   document.getElementById('userImage').addEventListener('click', function () {
@@ -164,7 +164,7 @@
 
   // Arrow back to home
   document.querySelector('.arrowBack').addEventListener('click', function () {
-    LoadPartialView('homepage', document.querySelector('.app'))
+    LoadPartialView('homepage/homepage', document.querySelector('.app'))
   })
 
   // View change functionality
@@ -172,22 +172,22 @@
     LoadPartialView('profile/user_posts', document.querySelector('.app'))
   })
   document.querySelector('.wishlist').addEventListener('click', function () {
-    LoadPartialView('wishlist', document.querySelector('.app'))
+    LoadPartialView('wishlist/wishlist', document.querySelector('.app'))
   })
   document.querySelector('.homeIcon').addEventListener('click', function () {
-    LoadPartialView('homepage', document.querySelector('.app'))
+    LoadPartialView('homepage/homepage', document.querySelector('.app'))
   })
   document.querySelector('.likedIcon').addEventListener('click', function () {
-    LoadPartialView('wishlist', document.querySelector('.app'))
+    LoadPartialView('wishlist/wishlist', document.querySelector('.app'))
   })
   document.querySelector('.mapIcon').addEventListener('click', function () {
-    LoadPartialView('map', document.querySelector('.app'))
+    LoadPartialView('map/map', document.querySelector('.app'))
   })
 
   // Log out button handling
   document.getElementById('logOutBtn').addEventListener('click', function () {
     logout();
-    LoadPartialView('login', document.querySelector('.app'))
+    LoadPartialView('user/login', document.querySelector('.app'))
   })
 </script>
 

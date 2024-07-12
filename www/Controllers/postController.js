@@ -33,7 +33,7 @@ async function createPost(title, desc, price, imgFile) {
             } saveNewPostId(data.post.postId);
 
             alert('Post successfully created!')
-            LoadPartialView('homepage', document.querySelector('.app'));
+            LoadPartialView('homepage/homepage', document.querySelector('.app'));
         } else {
             console.error(data.message);
             alert(data.message);
@@ -78,7 +78,7 @@ function displayPost(post) {
     var heartIconOnClick = userLikes.includes(post.postId) ? `dislikePost('${post.postId}')` : `likePost('${post.postId}')`;
 
     if(!userId) {
-        var heartIconOnClick = `LoadPartialView('login', document.querySelector('.app'))`;
+        var heartIconOnClick = `LoadPartialView('user/login', document.querySelector('.app'))`;
     }
 
     const cardHTML = `

@@ -46,7 +46,7 @@
   var userId = getLocalStorageValue("userId");
   if(!userId) {
     alert('Log in to add your favorite posts to your wishlist!')
-    LoadPartialView('login', document.querySelector('.app'))
+    LoadPartialView('user/login', document.querySelector('.app'))
   }
 
   // Load all posts a user has liked
@@ -54,13 +54,13 @@
 
   // View change functionality
   document.querySelector('.arrowBack').addEventListener('click', function () {
-    LoadPartialView('homepage', document.querySelector('.app'))
+    LoadPartialView('homepage/homepage', document.querySelector('.app'))
   })
   document.querySelector('.homeIcon').addEventListener('click', function () {
-    LoadPartialView('homepage', document.querySelector('.app'))
+    LoadPartialView('homepage/homepage', document.querySelector('.app'))
   })
   document.querySelector('.mapIcon').addEventListener('click', function () {
-    LoadPartialView('map', document.querySelector('.app'))
+    LoadPartialView('map/map', document.querySelector('.app'))
   })
   document.querySelector('.userIcon').addEventListener('click', function () {
     LoadPartialView('profile/userprofile', document.querySelector('.app'))

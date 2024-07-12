@@ -57,7 +57,7 @@ async function register(username, email, password) {
       if (response.ok) {
           console.log('Registration successful:', data);
           alert("Registration successful!");
-          LoadPartialView('login', document.querySelector('.app'));
+          LoadPartialView('user/login', document.querySelector('.app'));
       } else {
           console.error('Registration failed:', data.message);
           alert('Registration failed: ' + data.message);
