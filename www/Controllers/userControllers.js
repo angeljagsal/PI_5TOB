@@ -52,8 +52,8 @@ function likePost(postId) {
         localStorage.setItem('likes', JSON.stringify(likes));
       }
 
-      document.getElementById('cardsArea').innerHTML = '';
-      loadPosts();
+      // document.getElementById('cardsArea').innerHTML = '';
+      // loadPosts();
     })
     .catch(err => {
       console.error('Error:', err);
@@ -86,12 +86,12 @@ function dislikePost(postId) {
           saveLocalStorageValue('likes', JSON.stringify(likes));
         }
 
-        var cardsArea = document.getElementById('cardsArea')
+        // var cardsArea = document.getElementById('cardsArea')
 
-        if(cardsArea){
-          cardsArea.innerHTML = '';
-          loadPosts();
-        }
+        // if(cardsArea){
+        //   cardsArea.innerHTML = '';
+        //   loadPosts();
+        // }
 
       } else {
         console.log('Failed to remove like from the server.');

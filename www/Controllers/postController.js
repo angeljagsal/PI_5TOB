@@ -94,8 +94,8 @@ function displayPost(post) {
                     <div class="aspect-w-1 aspect-h-1" onclick="loadPostViewAndInfo('${post.postId}')">
                         <div class="bg-black w-full h-full rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
                     </div>
-                    <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer" onclick="${heartIconOnClick}">
-                        <img class="w-6" src="${heartIcon}" alt="">
+                    <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer">
+                        <img id="heartIcon${post.postId}" class="w-6" src="${heartIcon}" alt="" onclick="toggleLike('${post.postId}')">
                     </div>
                 </div>
                 <p class="text-xs mt-2">${post.title}</p>
@@ -106,6 +106,30 @@ function displayPost(post) {
 
     cardsArea.innerHTML += cardHTML;
 }
+
+function toggleLike(postId) {
+    var heartIcon = document.getElementById(`heartIcon${postId}`);
+    var userLikes = getLocalStorageValue('likes');
+
+    if (!Array.isArray(userLikes)) {
+        userLikes = userLikes ? JSON.parse(userLikes) : [];
+    }
+
+    const isLiked = userLikes.includes(postId);
+
+    if (isLiked) {
+        userLikes = userLikes.filter(id => id !== postId);
+        heartIcon.src = "../Public/img/heart.svg";
+        dislikePost(postId);
+    } else {
+        userLikes.push(postId);
+        heartIcon.src = "../Public/img/full-red-heart.svg";
+        likePost(postId);
+    }
+
+    saveLocalStorageValue('likes', JSON.stringify(userLikes));
+}
+
 
 // Function to retrieve the information of the posts within a user from the API
 function loadUserPosts() {
