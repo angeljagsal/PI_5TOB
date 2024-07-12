@@ -77,7 +77,7 @@ function displayPost(post) {
             <div class="card w-10/12">
             <div class="relative">
                 <div class="bg-black w-full h-80 rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
-                <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg" onclick="likePost('${post.postId}')"> 
+                <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer" onclick="likePost('${post.postId}')"> 
                 <img class="w-6" src="../Public/img/heart.svg" alt="">
                 </div>
             </div>

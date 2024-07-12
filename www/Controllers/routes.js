@@ -9,6 +9,8 @@ const registerUserRoute = env + "register"
 const uploadProfileImgRoute = env + "uploadImg"
 const createUserLikeRelationRoute = env + "like"
 const retrieveUserLikesRoute = env + "likes"
+const deleteUserLikeRoute = env + "removeLike"
+
 
 // Post API
 const createPostRoute = env + "post"

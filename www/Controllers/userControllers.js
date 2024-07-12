@@ -48,27 +48,48 @@ function likePost(postId) {
   });
 }
 
+function dislikePost(postId) {
+  fetch(deleteUserLikeRoute, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ userId, postId })
+  })
+  .then(response => {
+    if (response.ok) {
+      document.getElementById('userLikesArea').innerHTML = '';
+      loadUserLikes();
+    }
+  })
+  .catch(err => {
+    console.error('Error:', err)
+  });
+}
+
 function loadUserLikes() {
   fetch(retrieveUserLikesRoute, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ userId })
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId })
   })
   .then(res => res.json())
   .then(data => {
-      if (Array.isArray(data.posts)) {
-          data.posts.forEach(post => displayUserLike(post));
-      } else {
-          var noPosts = `
-              <div class="flex justify-center mt-2 text-lg text-gray-500">
-                  <p>Nothing here...</p>
-              </div>
-          `;
+    const userLikesArea = document.getElementById('userLikesArea');
+    userLikesArea.innerHTML = '';
 
-          document.querySelector('.userLikesArea').innerHTML += noPosts;
-      }
+    if (Array.isArray(data.posts) && data.posts.length > 0) {
+      data.posts.forEach(post => displayUserLike(post));
+    } else {
+      const noPosts = `
+        <div class="flex justify-center mt-2 text-lg text-gray-500">
+          <p>Nothing here...</p>
+        </div>
+      `;
+      userLikesArea.innerHTML = noPosts;
+    }
   })
   .catch(error => console.error('Error loading posts:', error));
 }
@@ -91,7 +112,7 @@ function displayUserLike(post) {
           <p class="text-xs text-gray-600">$${post.price}</p>
         </div>
         <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
-          <div class="editPostIcon">
+          <div class="cursor-pointer" onclick="dislikePost('${post.postId}')">
             <img class="ms-1 w-7 h-7" src="../Public/img/full-red-hearth.svg" alt="">
           </div>
         </div>
