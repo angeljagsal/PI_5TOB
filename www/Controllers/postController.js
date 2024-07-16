@@ -1,4 +1,5 @@
 var userId = getLocalStorageValue("userId");
+var loader = document.getElementById('loader');
 
 // Function to send data to the API and create a post
 async function createPost(title, desc, price, imgFile) {
@@ -60,6 +61,7 @@ function loadPosts() {
 
             document.querySelector('.cardsArea').innerHTML += noPosts;
         }
+        loader.classList.add('hidden');
     })
     .catch(error => console.error('Error loading posts:', error));
 }
@@ -99,7 +101,7 @@ function displayPost(post) {
                     </div>
                 </div>
                 <p class="text-xs mt-2">${post.title}</p>
-                <p class="text-xs text-gray-600">${post.desc || 'No desc'}</p>
+                <p class="text-xs text-gray-600 overflow-hidden whitespace-nowrap overflow-ellipsis">${post.desc || 'No desc'}</p>
                 <p class="text-xs text-gray-600">${post.price} MXN</p>
             </div>
         </div>`;
@@ -155,6 +157,7 @@ function loadUserPosts() {
 
             document.querySelector('.userPostsArea').innerHTML += noPosts;
         }
+        loader.classList.add('hidden');
     })
     .catch(error => console.error('Error loading posts:', error));
 }
@@ -179,7 +182,7 @@ function displayUserPost(post) {
                 <p class="text-xs text-gray-600">$${post.price}</p>
             </div>
             <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
-                <div class="editPostIcon" onclick="openModalEdit('${post.postId}')">
+                <div class="editPostIcon" onclick="openModalEdit('${post.postId}', '${post.title}', '${post.desc}', ${post.price})">
                 <img class="ms-1 w-7 h-7" src="../../Public/img/edit.svg" alt="">
                 </div>
                 <div class="deletePostIcon" onclick="openModalDelete('${post.postId}')">

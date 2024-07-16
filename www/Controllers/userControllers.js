@@ -1,3 +1,5 @@
+var loader = document.getElementById('loader');
+
 function logout() {
   removeLocalStorageValue("userId")
   removeLocalStorageValue("username")
@@ -123,6 +125,7 @@ function loadUserLikes() {
 
         document.querySelector('.userLikesArea').innerHTML += noPosts;
       }
+      loader.classList.add('hidden');
     })
     .catch(error => console.error('Error loading posts:', error));
 }

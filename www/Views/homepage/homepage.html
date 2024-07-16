@@ -54,18 +54,8 @@
 <script src="../Controllers/postController.js"></script>
 
 <script>
-  // Loader
-  document.addEventListener('PartialViewLoaded', function () {
-    setTimeout(function () {
-      var loader = document.getElementById('loader');
-      if (loader) {
-        loader.classList.add('hidden');
-      }
-    }, 500);
-  });
-
   // Load posts when view is loaded
-  loadPosts();
+  loadPosts() 
 
   // Functionality to show bubble only if logged
   var userId = getLocalStorageValue("userId");
@@ -75,7 +65,7 @@
 
   // View change functionality
   document.querySelector('.addPost').addEventListener('click', function () {
-    LoadPartialView('profile/create_post', document.querySelector('.app'))
+    LoadPartialView('homepage/create_post', document.querySelector('.app'))
   })
   document.querySelector('.likedIcon').addEventListener('click', function () {
     LoadPartialView('wishlist/wishlist', document.querySelector('.app'))
