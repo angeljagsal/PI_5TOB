@@ -15,7 +15,7 @@
   <!-- User information -->
   <div class="grid grid-cols-3 items-center">
     <!-- Image -->
-    <div class="pfp col-span-1 relative cursor-pointer w-28 h-28">
+    <div class="pfp col-span-1 relative w-28 h-28">
       <img class="rounded-full w-full h-full object-cover shadow-md" src="" id="userImage">
       <input type="file" id="fileInput" class="hidden">
     </div>
@@ -25,7 +25,7 @@
         <p id="displayUsername" class="text-lg font-semibold">Error</p>
         <p class="text-xs text-gray-500">Reynosa, Tamps</p>
       </div>
-      <button class="border-2 px-2 py-1 mt-2 text-gray-700 rounded-xl text-xs">Edit profile</button>
+      <button class="editProfile border-2 px-2 py-1 mt-2 text-gray-700 rounded-xl text-sm">Edit profile</button>
     </div>
   </div>
   <!-- Profile content -->
@@ -141,21 +141,6 @@
     LoadPartialView('user/login', document.querySelector('.app'))
   }
 
-  document.getElementById('userImage').addEventListener('click', function () {
-    document.getElementById('fileInput').click();
-  });
-
-  var userId = getLocalStorageValue("userId");
-  var newImage = null;
-
-  document.getElementById('fileInput').addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    if (file) {
-      newImage = file;
-      changeProfileImg(userId, newImage);
-    }
-  });
-
   // Display user picture
   document.getElementById('userImage').src = getLocalStorageValue("profileImg")
 
@@ -168,6 +153,9 @@
   })
 
   // View change functionality
+  document.querySelector('.editProfile').addEventListener('click', function () {
+    LoadPartialView('profile/edit_profile', document.querySelector('.app'))
+  })
   document.querySelector('.managePost').addEventListener('click', function () {
     LoadPartialView('profile/user_posts', document.querySelector('.app'))
   })
