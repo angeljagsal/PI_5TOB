@@ -35,17 +35,6 @@
 <script src="../Controllers/postController.js"></script>
 
 <script>
-  // Loader
-  document.addEventListener('PartialViewLoaded', function () {
-    setTimeout(function () {
-      var loader = document.getElementById('loader');
-      if (loader) {
-        loader.classList.add('hidden');
-      }
-    }, 500);
-  });
-
-
   // Arrow back to home
   document.querySelector('.arrowBack').addEventListener('click', function () {
     LoadPartialView('homepage/homepage', document.querySelector('.app'))

@@ -100,8 +100,8 @@ function displayPost(post) {
                         <img id="heartIcon${post.postId}" class="w-6" src="${heartIcon}" alt="" onclick="toggleLike('${post.postId}')">
                     </div>
                 </div>
-                <p class="text-xs mt-2">${post.title}</p>
-                <p class="text-xs text-gray-600 overflow-hidden whitespace-nowrap overflow-ellipsis">${post.desc || 'No desc'}</p>
+                <p class="card-title text-xs mt-2">${post.title}</p>
+                <p class="card-desc text-xs text-gray-600 overflow-hidden whitespace-nowrap overflow-ellipsis">${post.desc || 'No desc'}</p>
                 <p class="text-xs text-gray-600">${post.price} MXN</p>
             </div>
         </div>`;
@@ -110,9 +110,13 @@ function displayPost(post) {
 }
 
 function toggleLike(postId) {
+    if(!userId) {
+        alert('You must be logged in to like a post');
+        LoadPartialView('user/login', document.querySelector('.app'));
+        return;
+    }
     var heartIcon = document.getElementById(`heartIcon${postId}`);
     var userLikes = getLocalStorageValue('likes');
-
     if (!Array.isArray(userLikes)) {
         userLikes = userLikes ? JSON.parse(userLikes) : [];
     }
@@ -277,6 +281,10 @@ function retrievePostInformation(postId) {
         document.getElementById('desc').innerHTML = desc;
         document.getElementById('creator').innerHTML = creator;
         document.getElementById('userImg').style.backgroundImage = `url('${creatorImg}')`;
+
+        // Stop loader
+        var loader = document.getElementById('loader');
+        loader.classList.add('hidden');
     })
     .catch(error => console.error('Error:', error));
 }

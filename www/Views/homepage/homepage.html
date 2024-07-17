@@ -8,7 +8,8 @@
 <div class="bg-white fixed top-0 left-0 right-0 z-10 mx-8 pt-8">
   <div class="grid grid-cols-8 gap-0">
     <div class="flex col-span-7 border rounded-full shadow-md">
-      <input class="p-3 ps-5 rounded-full w-full focus:outline-none text-sm" type="text" placeholder="Where to?">
+      <input id="search" class="p-3 ps-5 rounded-full w-full focus:outline-none text-sm" type="text"
+        placeholder="Where to?">
       <img class="w-4 justify-self-end mr-3 cursor-pointer" src="Public/img/search.svg" alt="Search Icon">
     </div>
     <div class="flex justify-center col-span-1">
@@ -54,8 +55,25 @@
 <script src="../Controllers/postController.js"></script>
 
 <script>
+  // Functionality to search posts
+  document.getElementById('search').addEventListener('input', function () {
+    const searchTerm = this.value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      const title = card.querySelector('.card-title').textContent.toLowerCase();
+      const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+
+      if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+        card.parentElement.style.display = 'flex';
+      } else {
+        card.parentElement.style.display = 'none';
+      }
+    });
+  });
+
   // Load posts when view is loaded
-  loadPosts() 
+  loadPosts()
 
   // Functionality to show bubble only if logged
   var userId = getLocalStorageValue("userId");
