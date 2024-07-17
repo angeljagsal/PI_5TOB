@@ -1,3 +1,4 @@
+<!-- Loader -->
 <div id="loader" class="bg-white h-screen w-screen fixed top-0 left-0 z-50">
   <div class="flex justify-center items-center h-full">
     <div class="loader"></div>
@@ -5,7 +6,7 @@
 </div>
 
 <!-- Upper Navbar - Fixed at the top -->
-<div class="bg-white fixed top-0 left-0 right-0 z-10 mx-8 pt-8">
+<div id="upperNav" class="bg-white fixed top-0 left-0 right-0 z-10 mx-8 pt-8">
   <div class="grid grid-cols-8 gap-0">
     <div class="flex col-span-7 border rounded-full shadow-md">
       <input id="search" class="p-3 ps-5 rounded-full w-full focus:outline-none text-sm" type="text"
@@ -23,6 +24,10 @@
 
 <!-- Main Content Area for Cards with Scroll -->
 <div class="cardsArea pt-32 pb-16 overflow-auto h-screen" id="cardsArea">
+  <div class="flex justify-center mb-5">
+    <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl">
+    </div>
+  </div>
   <!-- Cards are automatically displayed using js -->
 </div>
 
@@ -34,7 +39,7 @@
 </div>
 
 <!-- Lower Navbar - Fixed at the bottom -->
-<nav class="fixed bottom-0 left-0 right-0 w-full h-16 bg-white shadow-inner rounded-t-lg z-10">
+<nav id="lowerNav" class="fixed bottom-0 left-0 right-0 w-full h-16 bg-white shadow-inner rounded-t-lg z-10">
   <div class="flex justify-center items-center h-full">
     <div class="homeIcon w-1/4 flex flex-col items-center justify-center">
       <img class="w-6 cursor-pointer" src="Public/img/home.svg" alt="Home Icon">
@@ -51,11 +56,43 @@
   </div>
 </nav>
 
+<!-- Post information (initially hidden) -->
+<div id="post" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
+  <div class="relative h-full w-full">
+    <div id="arrowBack"
+      class="absolute arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer ms-4 mt-4">
+      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    </div>
+    <div id="bgImg" class="w-full h-96 bg-cover bg-center"></div>
+    <div id="tripInfo" class="absolute bottom-0 w-full h-[calc(100%-18rem)] bg-gray-100 rounded-t-3xl z-10">
+      <div class="mt-6 mx-6">
+        <h1 id="title" class="text-2xl font-semibold"></h1>
+        <div class="flex items-center space-x-2">
+          <h1 id="price" class="text-3xl font-semibold"></h1>
+          <p class="text-xl text-gray-500">$ / person</p>
+        </div>
+        <h2 class="mt-6 mb-3 text-xl font-semibold">Description</h2>
+        <div id="desc" class="text-gray-500 w-full"></div>
+        <h2 class="mt-10 mb-3 text-xl font-semibold">Post created by</h2>
+        <div class="flex items-center">
+          <div id="userImg" class="w-8 h-8 bg-cover bg-center rounded-full"
+            style="background-image: url('Public/img/newyork.jpg');"></div>
+          <p id="creator" class="ml-2"></p>
+        </div>
+        <button class="w-full mt-6 p-3 bg-green-500 text-white font-bold rounded-lg">CONTACT US!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="../Controllers/userControllers.js"></script>
 <script src="../Controllers/postController.js"></script>
 
 <script>
-  // Functionality to search posts
+  // Search functionality for posts
   document.getElementById('search').addEventListener('input', function () {
     const searchTerm = this.value.toLowerCase();
     const cards = document.querySelectorAll('.card');
@@ -73,25 +110,35 @@
   });
 
   // Load posts when view is loaded
-  loadPosts()
+  loadPosts();
 
-  // Functionality to show bubble only if logged
+  // Show add post bubble only if logged in
   var userId = getLocalStorageValue("userId");
   if (!userId) {
-    document.getElementById('addPost').classList.add("hidden")
+    document.getElementById('addPost').classList.add("hidden");
   }
 
   // View change functionality
   document.querySelector('.addPost').addEventListener('click', function () {
-    LoadPartialView('homepage/create_post', document.querySelector('.app'))
-  })
+    LoadPartialView('homepage/create_post', document.querySelector('.app'));
+  });
+
   document.querySelector('.likedIcon').addEventListener('click', function () {
-    LoadPartialView('wishlist/wishlist', document.querySelector('.app'))
-  })
+    LoadPartialView('wishlist/wishlist', document.querySelector('.app'));
+  });
+
   document.querySelector('.mapIcon').addEventListener('click', function () {
-    LoadPartialView('map/map', document.querySelector('.app'))
-  })
+    LoadPartialView('map/map', document.querySelector('.app'));
+  });
+
   document.querySelector('.userIcon').addEventListener('click', function () {
-    LoadPartialView('profile/userprofile', document.querySelector('.app'))
-  })
+    LoadPartialView('profile/userprofile', document.querySelector('.app'));
+  });
+
+  // Functionality for back arrow
+  document.getElementById('arrowBack').addEventListener('click', function () {
+    document.getElementById('post').classList.add('hidden');
+    document.getElementById('lowerNav').classList.remove('hidden');
+    document.getElementById('upperNav').classList.remove('hidden');
+  });
 </script>

@@ -1,6 +1,10 @@
 document.getElementById('loginForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
+    const formBtn = document.getElementById('formBtn');
+    formBtn.disabled = true;
+    formBtn.innerText = 'Processing...';
+
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -36,9 +40,15 @@ async function login(email, password) {
         } else {
             console.error('Login failed:', data.message);
             alert('Error al iniciar sesión: ' + data.message);
+            const formBtn = document.getElementById('formBtn');
+            formBtn.disabled = false;
+            formBtn.innerText = 'Register';
         }
     } catch (error) {
         console.error('Network error:', error);
         alert('Error de red, por favor intenta más tarde.');
+        const formBtn = document.getElementById('formBtn');
+        formBtn.disabled = false;
+        formBtn.innerText = 'Register';
     }
 }

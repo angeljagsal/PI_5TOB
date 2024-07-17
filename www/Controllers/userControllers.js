@@ -195,8 +195,8 @@ function displayUserLike(post) {
 
   const cardHTML = `
     <div class="flex justify-center mb-3">
-      <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl" onclick="loadPostViewAndInfo('${post.postId}')">
-        <div class="col-span-3 flex items-center justify-center px-3">
+      <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl">
+        <div class="col-span-3 flex items-center justify-center px-3" onclick="loadPostViewAndInfo('${post.postId}')">
           <div class="bg-white w-full h-5/6 rounded-xl flex items-center justify-center overflow-hidden" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
         </div>
         <div class="col-span-3 flex flex-col justify-center px-3">
