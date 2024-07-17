@@ -59,11 +59,16 @@ async function register(username, email, password) {
           alert("Registration successful!");
           LoadPartialView('user/login', document.querySelector('.app'));
       } else {
-          console.error('Registration failed:', data.message);
           alert('Registration failed: ' + data.message);
+          const formBtn = document.getElementById('formBtn');
+          formBtn.disabled = false;
+          formBtn.innerText = 'Register';
       }
   } catch (error) {
       console.error('Network error:', error);
       alert('Network error, please try again later.');
+      const formBtn = document.getElementById('formBtn');
+      formBtn.disabled = false;
+      formBtn.innerText = 'Register';
   }
 }

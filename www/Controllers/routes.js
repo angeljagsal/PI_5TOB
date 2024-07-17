@@ -1,12 +1,16 @@
 const local_server = "http://localhost:6969/api/"
 const public_server = "https://travelapp-api.vercel.app/api/"
 
-const env = public_server
+const env = local_server
 
 // User API
 const loginUserRoute = env + "login"
 const registerUserRoute = env + "register"
 const uploadProfileImgRoute = env + "uploadImg"
+const editUserRoute = env + "editUser"
+const deleteUserRoute = env + "deleteUser"
+
+// Likes API
 const createUserLikeRelationRoute = env + "like"
 const retrieveUserLikesRoute = env + "likes"
 const deleteUserLikeRoute = env + "removeLike"

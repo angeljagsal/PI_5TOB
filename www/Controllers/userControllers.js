@@ -38,6 +38,62 @@ function changeProfileImg(userId, newImage) {
     });
 }
 
+function editUser(userId, username, email, password) {
+  fetch(editUserRoute, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId, username, email, password })
+  })
+    .then(response => {
+      if (response.ok) {
+        alert('User edited successfully!');
+        saveLocalStorageValue("username", username)
+        saveLocalStorageValue("email", email)
+      } else {
+        alert('Failed to edit user.');
+        var formBtn = document.getElementById('saveBtn');
+        formBtn.disabled = false;
+        formBtn.innerText = 'Save';
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      var formBtn = document.getElementById('saveBtn');
+      formBtn.disabled = false;
+      formBtn.innerText = 'Save';
+    });
+}
+
+function deleteUser(userId, password) {
+  fetch(deleteUserRoute, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId, password })
+  })
+    .then(response => {
+      if (response.ok) {
+        alert('User deleted successfully!');
+        logout();
+        LoadPartialView('homepage/homepage', document.querySelector('.app'))
+      } else {
+        alert('Failed to delete user.');
+        var formBtn = document.getElementById('delete');
+        formBtn.disabled = false;
+        formBtn.innerText = 'Delete';
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      var formBtn = document.getElementById('delete');
+      formBtn.disabled = false;
+      formBtn.innerText = 'Delete';
+    });
+}
+
 function likePost(postId) {
   fetch(createUserLikeRelationRoute, {
     method: 'POST',
@@ -75,11 +131,11 @@ function dislikePost(postId) {
         // Clear and reload user likes displayed
         var userLikesArea = document.getElementById('userLikesArea')
 
-        if(userLikesArea){
+        if (userLikesArea) {
           userLikesArea.innerHTML = '';
           loadUserLikes();
         }
-        
+
         // Remove postId from localStorage
         var likes = JSON.parse(localStorage.getItem('likes') || '[]');
         const index = likes.indexOf(postId);
