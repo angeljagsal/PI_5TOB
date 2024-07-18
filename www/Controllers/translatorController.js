@@ -1,5 +1,3 @@
-import languages from "../Public/js/languages.js";
-
 function initializeTranslator() {
   var selectFirst = document.querySelector(".first");
   var selectSecond = document.querySelector(".second");
@@ -56,14 +54,14 @@ function initializeTranslator() {
   });
 
   // Speech recognition to input text
-  var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-  recognition.lang = language1;
+  // var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+  // recognition.lang = language1;
 
-  recognition.onresult = (event) => {
-    fromText.value = event.results[0][0].transcript;
-  };
+  // recognition.onresult = (event) => {
+  //   fromText.value = event.results[0][0].transcript;
+  // };
 
-  listen.addEventListener("click", () => {
-    recognition.start();
-  });
+  // listen.addEventListener("click", () => {
+  //   recognition.start();
+  // });
 }

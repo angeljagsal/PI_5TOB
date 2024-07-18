@@ -97,5 +97,3 @@ var languages = [
   {"yi-YD": "Yiddish"},
   {"zu-ZA": "Zulu"}
 ]
-
-export default languages
