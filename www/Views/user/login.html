@@ -14,10 +14,10 @@
     </div>
     <form id="loginForm" class="loginForm mt-8" method="post">
       <div class="my-3 bg-gray-100 rounded-lg">
-        <input id="email" name="email" type="email" placeholder="Email Address" class="input">
+        <input id="email" name="email" type="email" placeholder="Email Address" class="input" required>
       </div>
       <div class="my-3 bg-gray-100">
-        <input id="password" name="password" type="password" placeholder="Password" class="input">
+        <input id="password" name="password" type="password" placeholder="Password" class="input" required>
       </div>
       <div class="flex justify-end text-xs text-gray-500">
         <a href="#">Forgot password?</a>
@@ -25,8 +25,8 @@
       <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
         <button id="formBtn" class="text-sm text-white font-semibold py-2 w-full" type="submit">Sign In</button>
       </div>
-      <p class="signInTxt flex justify-center mt-4 text-sm">Don't have an account?&nbsp;
-        <span class="text-orange-500 font-bold cursor-pointer">Sign up</span>
+      <p class="signUpTxt flex justify-center mt-6 text-sm text-gray-500">Don't have an account?&nbsp;
+        <span class="text-blue-500 font-bold cursor-pointer">Sign up</span>
       </p>
     </form>
   </div>
@@ -61,7 +61,7 @@
     LoadPartialView('homepage/homepage', document.querySelector('.app'))
   })
 
-  document.querySelector('.signInTxt').addEventListener('click', function() {
+  document.querySelector('.signUpTxt').addEventListener('click', function() {
     LoadPartialView('user/register', document.querySelector('.app'))
   })
 </script>

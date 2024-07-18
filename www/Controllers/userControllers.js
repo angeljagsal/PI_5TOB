@@ -30,8 +30,10 @@ function changeProfileImg(userId, newImage) {
       var userImgUrl = data.userImgUrl;
       saveLocalStorageValue("profileImg", userImgUrl)
       document.getElementById('userImage').src = getLocalStorageValue("profileImg")
-
+      
       alert('Picture successfully updated!');
+      document.getElementById('fileInput').disabled = false;
+      document.getElementById('userImage').classList.remove('opacity-20');
     })
     .catch(error => {
       console.error('Error updating picture:', error);

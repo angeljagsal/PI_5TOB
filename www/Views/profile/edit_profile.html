@@ -130,6 +130,8 @@
     const file = event.target.files[0];
     if (file) {
       newImage = file;
+      document.getElementById('fileInput').disabled = true;
+      document.getElementById('userImage').classList.add('opacity-20');
       changeProfileImg(userId, newImage);
     }
   });
@@ -174,7 +176,15 @@
   })
 
   // Display user data
-  document.getElementById('userImage').src = getLocalStorageValue("profileImg")
+  var userImg = document.getElementById('userImage');
+  var profileImg = getLocalStorageValue("profileImg");
+
+  if(profileImg == 'undefined') {
+    userImg.src = "Public/img/default-user.webp";
+  } else {
+    userImg.src = getLocalStorageValue("profileImg");
+  }
+
   document.getElementById('displayUsername').textContent = getLocalStorageValue("username");
   document.getElementById('username').value = getLocalStorageValue("username");
   document.getElementById('email').value = getLocalStorageValue("email");

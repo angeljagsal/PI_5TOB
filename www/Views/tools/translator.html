@@ -65,9 +65,11 @@
   </div>
 </div>
 
-<script src="Controllers/translatorController.js" type="module"></script>
-
 <script>
+  // Initialize translator
+  initializeTranslator();
+
+  // Close translator
   document.getElementById('close').addEventListener('click', function () {
     LoadPartialView('tools/travel_tools', document.querySelector('.app'))
   });

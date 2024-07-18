@@ -15,22 +15,28 @@
     <form class="registerForm" id="registerForm" method="post">
       <div class="mt-8">
         <div class="my-3 bg-gray-100 rounded-lg">
-          <input id="username" name="username" type="text" placeholder="Username" class="input">
+          <input id="username" name="username" type="text" placeholder="Username" class="input" required>
         </div>
         <div class="my-3 bg-gray-100 rounded-lg">
-          <input id="emailAddress" name="email" type="email" placeholder="Email Address" class="input">
+          <input id="emailAddress" name="email" type="email" placeholder="Email Address" class="input" requird>
         </div>
         <div class="my-3 bg-gray-100 rounded-lg">
-          <input id="password" name="password" type="password" placeholder="Password" class="input">
+          <input id="password" name="password" type="password" placeholder="Password" class="input" required>
         </div>
       </div>
       <div class="flex flex-col cursor-pointer items-center bg-black rounded-md mt-8">
-        <button id="formBtn" class="text-sm text-white font-semibold py-2" type="submit">Sign Up</button>
+        <button id="formBtn" class="text-sm w-full text-white font-semibold py-2" type="submit">Sign Up</button>
       </div>
     </form>
   </div>
   <div>
-    <div class="flex justify-center mt-12">
+    <p class="signInTxt flex justify-center mt-6 text-sm text-gray-500">Already have an account?&nbsp;
+      <span class="text-blue-500 font-bold cursor-pointer">Sign in</span>
+    </p>
+  </div>
+  <hr class="border-2 mt-6">
+  <div>
+    <div class="flex justify-center mt-6">
       <p class="text-sm text-gray-500 font-semibold">* Or continue with *</p>
     </div>
     <div class="flex justify-center items-center gap-3 my-8">
@@ -54,5 +60,8 @@
 <script>
   document.querySelector('.arrowBack').addEventListener('click', function() {
     LoadPartialView('homepage/homepage', document.querySelector('.app'))
+  })
+  document.querySelector('.signInTxt').addEventListener('click', function() {
+    LoadPartialView('user/login', document.querySelector('.app'))
   })
 </script>

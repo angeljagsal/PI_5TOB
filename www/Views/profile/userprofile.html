@@ -68,9 +68,8 @@
     </div>
   </div>
   <!-- ADDRESS SECTION -->
-  <div class="mt-6">
+  <!-- <div class="mt-6">
     <p class="mb-6 text-sm text-gray-600">Address</p>
-    <!-- BUTTON -->
     <div class="grid grid-cols-12">
       <div class="col-span-2 ms-1">
         <div class="bg-gray-100 w-fit p-1 rounded-lg">
@@ -85,7 +84,7 @@
     <div class="flex w-10/12">
       <p class="text text-sm text-gray-600 ms-14">Matamoros #315, Jarachina Sur #88736</p>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <!-- Logout button -->
@@ -138,8 +137,14 @@
   var userImage = document.getElementById('userImage');
   var loader = document.getElementById('loader');
 
+  profileImg = getLocalStorageValue("profileImg");
+
   // Configura la fuente de la imagen
-  userImage.src = getLocalStorageValue("profileImg");
+  if(profileImg == 'undefined'){
+    userImage.src = "Public/img/default-user.webp";
+  } else {
+    userImage.src = profileImg;
+  }
 
   // Añade un event listener para el evento 'load' de la imagen
   userImage.addEventListener('load', function() {
