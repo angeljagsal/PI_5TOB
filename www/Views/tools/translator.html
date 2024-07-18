@@ -1,0 +1,73 @@
+<div id="translatorContainer" class="m-8 mt-12">
+  <!-- Title -->
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-900">
+      Translator
+    </h1>
+    <img id="close" class="w-6 -mt-1" src="Public/img/close.svg" alt="">
+  </div>
+  <p class="mt-2 text-gray-500">Translate text instantly between languages.</p>
+
+  <!-- Languages -->
+  <div class="grid grid-cols-7 mt-12 gap-2">
+    <div class="header col-span-3 relative">
+      <select class="first p-3 pl-5 pr-10 w-full rounded-lg bg-blue-100 appearance-none">
+        <option value="es">Spanish</option>
+        <option value="en">English</option>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700">
+        <img class="w-4" src="Public/img/angle-down.svg" alt="">
+      </div>
+    </div>
+    <div class="col-span-1 flex items-center justify-center">
+      <button id="change" class="iconButton bg-white rounded-xl p-2">
+        <i class="fas fa-exchange-alt text-blue-700"></i>
+      </button>
+    </div>
+    <div class="col-span-3 relative">
+      <select class="second p-3 pl-5 pr-10 w-full rounded-lg bg-blue-100 appearance-none">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700">
+        <img class="w-4" src="Public/img/angle-down.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Text area -->
+  <div class="containerTextArea grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <div class="relative w-full rounded-md">
+      <textarea
+        class="fromText w-full h-52 outline-none border-2 border-gray-200 rounded-md px-3 py-3 focus:border-blue-500 resize-none"
+        placeholder="Enter text"></textarea>
+      <button class="read absolute top-0 right-1 iconButton hover:bg-gray-300 rounded-full p-2 focus:outline-none">
+        <i class="fas fa-volume-up text-blue-700"></i>
+      </button>
+    </div>
+
+    <div class="relative w-full rounded-md">
+      <textarea
+        class="toText w-full h-52 outline-none border-2 border-gray-200 rounded-md px-3 py-3 focus:border-blue-500 resize-none text-xl text-blue-600 font-semibold"
+        placeholder="Translation" readonly></textarea>
+      <div class="flex items-center justify-end mt-2">
+        <button
+          class="read iconButton absolute top-0 right-1 iconButton hover:bg-gray-300 rounded-full p-2 focus:outline-none">
+          <i class="fas fa-volume-up text-blue-700"></i>
+        </button>
+      </div>
+    </div>
+
+    <button class="translate bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none">
+      <i class="fas fa-language mr-2"></i> Translate
+    </button>
+  </div>
+</div>
+
+<script src="Controllers/translatorController.js" type="module"></script>
+
+<script>
+  document.getElementById('close').addEventListener('click', function () {
+    LoadPartialView('tools/travel_tools', document.querySelector('.app'))
+  });
+</script>

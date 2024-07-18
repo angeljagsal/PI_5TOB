@@ -60,14 +60,14 @@
       </div>
     </div>
     <!-- Preferences container -->
-    <div class="grid grid-cols-12 mb-3 cursor-pointer">
+    <div class="map grid grid-cols-12 mb-3 cursor-pointer">
       <div class="col-span-2 ms-1">
         <div class="bg-gray-100 w-fit p-1 rounded-lg">
-          <img class="w-6" src="Public/img/gear.svg" alt="">
+          <img class="w-6" src="Public/img/map.svg" alt="">
         </div>
       </div>
       <div class="col-span-9 flex items-center">
-        <p>Preferences</p>
+        <p>Map</p>
       </div>
       <div class="col-span-1 flex items-center">
         <img class="w-5" src="Public/img/rightArrow.svg" alt="">
@@ -123,8 +123,8 @@
     <div class="likedIcon w-1/4 flex flex-col items-center justify-center">
       <img class="w-6 cursor-pointer opacity-30" src="Public/img/heart.svg" alt="">
     </div>
-    <div class="mapIcon w-1/4 flex flex-col items-center justify-center">
-      <img class="w-6 cursor-pointer opacity-30" src="Public/img/map.svg" alt="">
+    <div class="toolsIcon w-1/4 flex flex-col items-center justify-center">
+      <img class="w-6 cursor-pointer opacity-30" src="Public/img/briefcase.svg" alt="">
     </div>
     <div class="userIcon w-1/4 flex flex-col items-center justify-center">
       <img class="w-6 cursor-pointer" src="Public/img/user.svg" alt="">
@@ -162,14 +162,19 @@
   document.querySelector('.wishlist').addEventListener('click', function () {
     LoadPartialView('wishlist/wishlist', document.querySelector('.app'))
   })
+  document.querySelector('.map').addEventListener('click', function () {
+    LoadPartialView('map/map', document.querySelector('.app'))
+  })
+
+  // Lower navbar functionality
   document.querySelector('.homeIcon').addEventListener('click', function () {
     LoadPartialView('homepage/homepage', document.querySelector('.app'))
   })
   document.querySelector('.likedIcon').addEventListener('click', function () {
     LoadPartialView('wishlist/wishlist', document.querySelector('.app'))
   })
-  document.querySelector('.mapIcon').addEventListener('click', function () {
-    LoadPartialView('map/map', document.querySelector('.app'))
+  document.querySelector('.toolsIcon').addEventListener('click', function () {
+    LoadPartialView('tools/travel_tools', document.querySelector('.app'))
   })
 
   // Log out button handling

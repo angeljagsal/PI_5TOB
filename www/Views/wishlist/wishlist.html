@@ -36,8 +36,8 @@
     <div class="likedIcon w-1/4 flex flex-col items-center justify-center">
       <img class="w-6 cursor-pointer" src="Public/img/heart.svg" alt="Liked Icon">
     </div>
-    <div class="mapIcon w-1/4 flex flex-col items-center justify-center">
-      <img class="w-6 cursor-pointer opacity-30" src="Public/img/map.svg" alt="Map Icon">
+    <div class="toolsIcon w-1/4 flex flex-col items-center justify-center">
+      <img class="w-6 cursor-pointer opacity-30" src="Public/img/briefcase.svg" alt="Map Icon">
     </div>
     <div class="userIcon w-1/4 flex flex-col items-center justify-center">
       <img class="w-6 cursor-pointer opacity-30" src="Public/img/user.svg" alt="User Icon">
@@ -96,8 +96,8 @@
   document.querySelector('.homeIcon').addEventListener('click', function () {
     LoadPartialView('homepage/homepage', document.querySelector('.app'))
   })
-  document.querySelector('.mapIcon').addEventListener('click', function () {
-    LoadPartialView('map/map', document.querySelector('.app'))
+  document.querySelector('.toolsIcon').addEventListener('click', function () {
+    LoadPartialView('tools/travel_tools', document.querySelector('.app'))
   })
   document.querySelector('.userIcon').addEventListener('click', function () {
     LoadPartialView('profile/userprofile', document.querySelector('.app'))
