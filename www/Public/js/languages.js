@@ -1,4 +1,4 @@
-const languages = [
+var languages = [
   {"am-ET": "Amharic"},
   {"ar-SA": "Arabic"},
   {"be-BY": "Bielarus"},

@@ -1,10 +1,13 @@
-<div id="translatorContainer" class="m-8 mt-12">
-  <!-- Title -->
+<div class="mt-8 mx-8 flex justify-end">
+  <img id="close" class="w-6 mt-1" src="Public/img/close.svg" alt="">
+</div>
+
+<div id="translatorContainer" class="mx-8 mt-2">
+  <!-- Header -->
   <div class="flex items-center justify-between">
     <h1 class="text-3xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-900">
       Translator
     </h1>
-    <img id="close" class="w-6 -mt-1" src="Public/img/close.svg" alt="">
   </div>
   <p class="mt-2 text-gray-500">Translate text instantly between languages.</p>
 
@@ -12,8 +15,7 @@
   <div class="grid grid-cols-7 mt-12 gap-2">
     <div class="header col-span-3 relative">
       <select class="first p-3 pl-5 pr-10 w-full rounded-lg bg-blue-100 appearance-none">
-        <option value="es">Spanish</option>
-        <option value="en">English</option>
+        <!-- Options are added with JS -->
       </select>
       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700">
         <img class="w-4" src="Public/img/angle-down.svg" alt="">
@@ -26,8 +28,7 @@
     </div>
     <div class="col-span-3 relative">
       <select class="second p-3 pl-5 pr-10 w-full rounded-lg bg-blue-100 appearance-none">
-        <option value="en">English</option>
-        <option value="es">Spanish</option>
+        <!-- Options are added with JS -->
       </select>
       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700">
         <img class="w-4" src="Public/img/angle-down.svg" alt="">

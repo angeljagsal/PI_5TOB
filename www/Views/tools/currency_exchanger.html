@@ -1,0 +1,52 @@
+<div class="mt-8 mx-8 flex justify-end">
+  <img id="close" class="w-6 mt-1" src="Public/img/close.svg" alt="">
+</div>
+
+<div class="m-8 mt-12">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl p-1 font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-900">
+      Currency Exchanger
+    </h1>
+  </div>
+  <p class="mt-3 mb-6 text-gray-500">Convert currencies instantly with our currency converter.</p>
+  <form action="#" class="mt-8">
+    <div class="amount">
+      <p class="text-xl font-semibold mb-5">Enter Amount</p>
+      <input type="text" value="1" class="border-2 rounded-md w-full py-2 px-3 text-base outline-none focus:border-blue-500" />
+    </div>
+    <div class="drop-list flex items-center justify-between mt-4">
+      <div class="from">
+        <p>From</p>
+        <div class="select-box flex items-center border-2 rounded-md py-1 px-2">
+          <img src="https://flagcdn.com/48x36/us.png" alt="" class="max-w-6 mr-2" />
+          <select class="text-base bg-white">
+          </select>
+        </div>
+      </div>
+      <div class="icon text-2xl mt-8 cursor-pointer"><i class="fas fa-exchange-alt"></i></div>
+      <div class="to">
+        <p>To</p>
+        <div class="select-box flex items-center border-2 rounded-md py-1 px-2">
+          <img src="https://flagcdn.com/48x36/in.png" alt="" class="max-w-6 mr-2" />
+          <select class="text-base bg-white">
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center my-6 font-semibold text-xl">
+      <div class="exchange_rate text-base mt-4">Getting exchange rate...</div>
+    </div>
+    <button class="mt-4 h-14 bg-purple-500 text-white text-base font-semibold rounded-md w-full transition duration-300 ease-in-out hover:bg-transparent bg-gradient-to-r from-blue-500 to-blue-900">Get Exchange Rate</button>
+  </form>
+
+</div>
+
+<script src="../../Public/js/countries.js"></script>
+<script src="../../Controllers/currencyController.js"></script>
+
+<script>
+  document.getElementById('close').addEventListener('click', function () {
+    LoadPartialView('tools/travel_tools', document.querySelector('.app'))
+  });
+</script>
