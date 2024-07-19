@@ -39,16 +39,16 @@ async function login(email, password) {
             LoadPartialView('homepage/homepage', document.querySelector('.app'));
         } else {
             console.error('Login failed:', data.message);
-            alert('Error al iniciar sesión: ' + data.message);
+            alert('Failed to sign in: ' + data.message);
             const formBtn = document.getElementById('formBtn');
             formBtn.disabled = false;
-            formBtn.innerText = 'Register';
+            formBtn.innerText = 'Sign In';
         }
     } catch (error) {
         console.error('Network error:', error);
-        alert('Error de red, por favor intenta más tarde.');
+        alert('Network error, please try again later.');
         const formBtn = document.getElementById('formBtn');
         formBtn.disabled = false;
-        formBtn.innerText = 'Register';
+        formBtn.innerText = 'Sign In';
     }
 }

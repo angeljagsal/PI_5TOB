@@ -13,12 +13,14 @@ document.getElementById("registerForm").addEventListener("submit", function(even
   if (!username || !email || !password) {
       alert("Please fill in all fields.");
       formBtn.disabled = false;
-      formBtn.innerText = 'Register';
+      formBtn.innerText = 'Sign Up';
       return;
   }
 
-  if (username.length < 5) {
-    alert("Username not available.")
+  if (username.length < 5 || username.length > 20) {
+    alert("Username must be more than 5 characters and less than 20.")
+    formBtn.disabled = false;
+    formBtn.innerText = 'Sign Up';
     return;
   }
 
@@ -26,6 +28,8 @@ document.getElementById("registerForm").addEventListener("submit", function(even
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (regex.test(email)) {
       console.log('Incorrect email.');
+      formBtn.disabled = false;
+      formBtn.innerText = 'Sign Up';
       return true;
     }
   };
@@ -62,13 +66,13 @@ async function register(username, email, password) {
           alert('Registration failed: ' + data.message);
           const formBtn = document.getElementById('formBtn');
           formBtn.disabled = false;
-          formBtn.innerText = 'Register';
+          formBtn.innerText = 'Sign Up';
       }
   } catch (error) {
       console.error('Network error:', error);
       alert('Network error, please try again later.');
       const formBtn = document.getElementById('formBtn');
       formBtn.disabled = false;
-      formBtn.innerText = 'Register';
+      formBtn.innerText = 'Sign Up';
   }
 }

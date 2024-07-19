@@ -92,28 +92,25 @@ function displayPost(post) {
     var userLikes = getLocalStorageValue('likes') || [];
 
     const heartIcon = userLikes.includes(post.postId) ? "../Public/img/full-red-heart.svg" : "../Public/img/heart.svg";
-    var heartIconOnClick = userLikes.includes(post.postId) ? `dislikePost('${post.postId}')` : `likePost('${post.postId}')`;
-
-    if (!userId) {
-        var heartIconOnClick = `LoadPartialView('user/login', document.querySelector('.app'))`;
-    }
 
     const cardHTML = `
-        <div class="cards-wrapper flex justify-center mb-3">
-            <div class="card w-10/12">
-                <div class="relative">
-                    <div id="openInfo" class="aspect-w-1 aspect-h-1" onclick="loadPostViewAndInfo('${post.postId}')">
-                        <div class="bg-black w-full h-full rounded-xl" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
-                    </div>
-                    <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer">
-                        <img id="heartIcon${post.postId}" class="w-6" src="${heartIcon}" alt="" onclick="toggleLike('${post.postId}')">
-                    </div>
+    <div class="cards-wrapper flex justify-center mb-5">
+        <div class="card w-10/12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="relative">
+                <div id="openInfo" class="aspect-w-1 aspect-h-1 cursor-pointer" onclick="loadPostViewAndInfo('${post.postId}')">
+                    <div class="bg-black w-full h-full" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
                 </div>
-                <p class="card-title text-xs mt-2">${post.title}</p>
-                <p class="card-desc text-xs text-gray-600 overflow-hidden whitespace-nowrap overflow-ellipsis">${post.desc || 'No desc'}</p>
-                <p class="text-xs text-gray-600">${post.price} MXN</p>
+                <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer">
+                    <img id="heartIcon${post.postId}" class="w-6" src="${heartIcon}" alt="Like Icon" onclick="toggleLike('${post.postId}')">
+                </div>
             </div>
-        </div>`;
+            <div class="p-4">
+                <p class="card-title text-sm font-semibold">${post.title}</p>
+                <p class="card-desc text-xs text-gray-600 mt-1 truncate">${post.desc || 'No desc'}</p>
+                <p class="text-xs text-gray-600 mt-2 font-semibold">${post.price} MXN</p>
+            </div>
+        </div>
+    </div>`;
 
     cardsArea.innerHTML += cardHTML;
 }
@@ -124,8 +121,8 @@ function toggleLike(postId) {
         LoadPartialView('user/login', document.querySelector('.app'));
         return;
     }
-    var heartIcon = document.getElementById(`heartIcon${postId}`);
-    var userLikes = getLocalStorageValue('likes');
+
+    let userLikes = getLocalStorageValue('likes');
     if (!Array.isArray(userLikes)) {
         userLikes = userLikes ? JSON.parse(userLikes) : [];
     }
@@ -134,11 +131,17 @@ function toggleLike(postId) {
 
     if (isLiked) {
         userLikes = userLikes.filter(id => id !== postId);
-        heartIcon.src = "../Public/img/heart.svg";
+        document.getElementById(`heartIcon${postId}`).src = "Public/img/heart.svg";
+        if (document.getElementById('heartIconDetail')) {
+            document.getElementById('heartIconDetail').src = "Public/img/heart.svg";
+        }
         dislikePost(postId);
     } else {
         userLikes.push(postId);
-        heartIcon.src = "../Public/img/full-red-heart.svg";
+        document.getElementById(`heartIcon${postId}`).src = "Public/img/full-red-heart.svg";
+        if (document.getElementById('heartIconDetail')) {
+            document.getElementById('heartIconDetail').src = "Public/img/full-red-heart.svg";
+        }
         likePost(postId);
     }
 
@@ -287,7 +290,18 @@ function retrievePostInformation(postId) {
             document.getElementById('price').innerHTML = price;
             document.getElementById('desc').innerHTML = desc;
             document.getElementById('creator').innerHTML = creator;
-            document.getElementById('userImg').style.backgroundImage = `url('${creatorImg}')`;
+
+            let defaultImg = 'Public/img/default-user.webp';
+            let backgroundImageUrl = (creatorImg && creatorImg.trim()) ? `url('${creatorImg}')` : `url('${defaultImg}')`;
+            document.getElementById('userImg').style.backgroundImage = backgroundImageUrl;
+
+            // Handle like icon in detail view
+            let userLikes = JSON.parse(getLocalStorageValue('likes')) || [];
+            const heartIcon = userLikes.includes(postId) ? "Public/img/full-red-heart.svg" : "Public/img/heart.svg";
+            document.getElementById('heartIconDetail').src = heartIcon;
+            document.getElementById('heartIconDetail').onclick = function () {
+                toggleLike(postId);
+            };
 
             // Stop loader
             var loader = document.getElementById('loader');
