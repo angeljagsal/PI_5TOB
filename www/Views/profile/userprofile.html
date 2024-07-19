@@ -5,17 +5,11 @@
   </div>
 </div>
 
-<div class="m-8">
+<div class="m-8 mt-10">
   <!-- TOP BAR -->
-  <div class="grid grid-cols-3">
-    <div class="arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
-      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-        stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-      </svg>
-    </div>
-    <div class="flex justify-center items-center m-0 p-0 col-span-1">
-      <h1 class="text-xl text-gray-800 font-semibold">Profile</h1>
+  <div class="flex justify-center">
+    <div class="flex justify-center items-center m-0 p-0">
+      <h1 class="text-xl text-gray-800 font-semibold">User profile</h1>
     </div>
   </div>
   <hr class="border border-gray-300 mt-6 mb-6 text-black">
@@ -38,20 +32,6 @@
   <!-- Profile content -->
   <div class="mt-12">
     <p class="mb-6 text-sm text-gray-600">My stuff</p>
-    <!-- Manage posts container -->
-    <div class="managePost grid grid-cols-12 mb-3 cursor-pointer">
-      <div class="col-span-2 ms-1">
-        <div class="bg-gray-100 w-fit p-1 rounded-lg">
-          <img class="w-6" src="Public/img/userEdit.svg" alt="">
-        </div>
-      </div>
-      <div class="col-span-9 flex items-center">
-        <p>Manage posts</p>
-      </div>
-      <div class="col-span-1 flex items-center">
-        <img class="w-5" src="Public/img/rightArrow.svg" alt="">
-      </div>
-    </div>
     <!-- Preferences container -->
     <div class="map grid grid-cols-12 mb-3 cursor-pointer">
       <div class="col-span-2 ms-1">
@@ -61,6 +41,34 @@
       </div>
       <div class="col-span-9 flex items-center">
         <p>Map</p>
+      </div>
+      <div class="col-span-1 flex items-center">
+        <img class="w-5" src="Public/img/rightArrow.svg" alt="">
+      </div>
+    </div>
+    <!-- Create posts container -->
+    <div class="createPost grid grid-cols-12 mb-3 cursor-pointer">
+      <div class="col-span-2 ms-1">
+        <div class="bg-gray-100 w-fit p-1 rounded-lg">
+          <img class="w-6" src="Public/img/add.svg" alt="">
+        </div>
+      </div>
+      <div class="col-span-9 flex items-center">
+        <p>Create a post</p>
+      </div>
+      <div class="col-span-1 flex items-center">
+        <img class="w-5" src="Public/img/rightArrow.svg" alt="">
+      </div>
+    </div>
+    <!-- Manage posts container -->
+    <div class="managePost grid grid-cols-12 mb-3 cursor-pointer">
+      <div class="col-span-2 ms-1">
+        <div class="bg-gray-100 w-fit p-1 rounded-lg">
+          <img class="w-6" src="Public/img/userEdit.svg" alt="">
+        </div>
+      </div>
+      <div class="col-span-9 flex items-center">
+        <p>Manage posts</p>
       </div>
       <div class="col-span-1 flex items-center">
         <img class="w-5" src="Public/img/rightArrow.svg" alt="">
@@ -140,14 +148,14 @@
   profileImg = getLocalStorageValue("profileImg");
 
   // Configura la fuente de la imagen
-  if(profileImg == 'undefined'){
+  if (profileImg == 'undefined') {
     userImage.src = "Public/img/default-user.webp";
   } else {
     userImage.src = profileImg;
   }
 
   // Añade un event listener para el evento 'load' de la imagen
-  userImage.addEventListener('load', function() {
+  userImage.addEventListener('load', function () {
     // Oculta el loader cuando la imagen se haya cargado
     loader.classList.add('hidden');
   });
@@ -156,14 +164,12 @@
   // Display username in top of user profile
   document.getElementById('displayUsername').textContent = getLocalStorageValue("username");
 
-  // Arrow back to home
-  document.querySelector('.arrowBack').addEventListener('click', function () {
-    LoadPartialView('homepage/homepage', document.querySelector('.app'))
-  })
-
   // View change functionality
   document.querySelector('.editProfile').addEventListener('click', function () {
     LoadPartialView('profile/edit_profile', document.querySelector('.app'))
+  })
+  document.querySelector('.createPost').addEventListener('click', function () {
+    LoadPartialView('homepage/create_post', document.querySelector('.app'))
   })
   document.querySelector('.managePost').addEventListener('click', function () {
     LoadPartialView('profile/user_posts', document.querySelector('.app'))

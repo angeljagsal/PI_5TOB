@@ -196,22 +196,21 @@ function displayUserLike(post) {
   }
 
   const cardHTML = `
-    <div class="flex justify-center mb-3">
-      <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl">
-        <div class="col-span-3 flex items-center justify-center px-3" onclick="loadPostViewAndInfo('${post.postId}')">
-          <div class="bg-white w-full h-5/6 rounded-xl flex items-center justify-center overflow-hidden" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
-        </div>
-        <div class="col-span-3 flex flex-col justify-center px-3">
-          <p class="text-sm font-bold">${post.title}</p>
-          <p class="text-xs text-gray-600">$${post.price}</p>
-        </div>
-        <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
-          <div class="cursor-pointer" onclick="dislikePost('${post.postId}')">
-            <img class="ms-1 w-7 h-7" src="../Public/img/full-red-heart.svg" alt="">
-          </div>
-        </div>
-      </div>
-    </div>`;
+<div class="flex justify-center mb-4">
+  <div class="relative w-10/12 max-w-md h-36 bg-white shadow-2xl rounded-lg overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="${post.imageUrl}" alt="${post.title}" class="object-cover w-full h-full cursor-pointer" onclick="loadPostViewAndInfo('${post.postId}')"/>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent p-4">
+      <p class="text-lg font-bold text-white truncate">${post.title}</p>
+      <p class="text-md text-gray-200">$${post.price}</p>
+    </div>
+    <div class="absolute top-2 right-2 flex items-center justify-center bg-white p-1 rounded-full shadow-lg cursor-pointer hover:bg-gray-200" onclick="dislikePost('${post.postId}')">
+      <img class="w-7 h-7 text-red-600" src="../Public/img/trashcan.svg" alt="Dislike">
+    </div>
+  </div>
+</div>
+`;
 
   cardsArea.innerHTML += cardHTML;
 }

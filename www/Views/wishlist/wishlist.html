@@ -4,27 +4,21 @@
   </div>
 </div>
 
-<div id="upperNav" class="bg-white fixed top-0 left-0 right-0 z-10 mx-8 pt-8">
-  <!-- TOP BAR -->
-  <div class="grid grid-cols-3 ">
-    <div class="arrowBack col-span-1 justify-self-start bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
-      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-        stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-      </svg>
-    </div>
-    <div class="col-span-1 flex justify-center items-center m-0 p-0">
-      <h1 class="text-xl text-gray-800 font-semibold">Wishlist</h1>
-    </div>
-    <div class="col-span-1 justify-self-end w-fit rounded py-1 p-0.5 pe-1 cursor-pointer">
-      <img class="w-6" src="../../Public/img/search.svg" alt="">
-    </div>
-  </div>
-  <hr class="border border-gray-300 mt-6 mb-6 text-black">
-</div>
+<!-- Upper section -->
+ <div class="m-8">
+   <div class="flex items-center space-x-4">
+     <div id="userImg" class="w-12 h-12 bg-cover bg-center rounded-full"
+       style="background-image: url('Public/img/default-user.webp');"></div>
+     <div class="flex flex-col">
+       <p id="usernameUpper" class="text-sm text-gray-600">username's</p>
+       <h1 class="text-xl text-gray-800 font-bold">wishlist</h1>
+     </div>
+   </div>
+   <hr class="border border-gray-300 mt-6 mb-6 text-black">
+ </div>
 
 <!-- All liked posts are shown here, using js -->
-<div class="userLikesArea mt-28 mb-20" id="userLikesArea">
+<div class="userLikesArea mb-20" id="userLikesArea">
   <!-- Cards are displayed here -->
 </div>
 
@@ -48,7 +42,8 @@
 <!-- Post information (initially hidden) -->
 <div id="post" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
   <div class="relative h-full w-full">
-    <div id="arrowBack" class="absolute arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer ms-4 mt-4">
+    <div id="arrowBack"
+      class="absolute arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer ms-4 mt-4">
       <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
         stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -81,13 +76,27 @@
 <script>
   // Manage users without account
   var userId = getLocalStorageValue("userId");
-  if(!userId) {
+  if (!userId) {
     alert('Log in to add your favorite posts to your wishlist!')
     LoadPartialView('user/login', document.querySelector('.app'))
   }
 
   // Load all posts a user has liked
   loadUserLikes();
+
+  // Upper username and image
+  var userImage = document.getElementById('userImg');
+  var profileImg = getLocalStorageValue('profileImg');
+
+  if (profileImg == 'undefined') {
+    userImage.src = "Public/img/default-user.webp";
+  } else {
+    userImage.src = profileImg;
+  }
+
+  var username = getLocalStorageValue('username');
+  var usernamePossessive = username.endsWith('s') ? username + "'" : username + "'s";
+  document.getElementById('usernameUpper').innerHTML = usernamePossessive;
 
   // View change functionality
   document.querySelector('.arrowBack').addEventListener('click', function () {
@@ -107,6 +116,8 @@
   document.getElementById('arrowBack').addEventListener('click', function () {
     document.getElementById('post').classList.add('hidden');
     document.getElementById('lowerNav').classList.remove('hidden');
-    document.getElementById('upperNav').classList.remove('hidden');
+    if(document.getElementById('upperNav')) {
+      document.getElementById('upperNav').classList.remove('hidden');
+    }
   });
 </script>

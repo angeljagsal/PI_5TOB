@@ -75,7 +75,9 @@ function loadPostViewAndInfo(postId) {
     // Show post view
     document.getElementById('post').classList.remove('hidden');
     document.getElementById('lowerNav').classList.add('hidden');
-    document.getElementById('upperNav').classList.add('hidden');
+    if(document.getElementById('upperNav')) {
+        document.getElementById('upperNav').classList.add('hidden');
+    }
 
     // Load post view information
     retrievePostInformation(postId);
@@ -101,7 +103,7 @@ function displayPost(post) {
                     <div class="bg-black w-full h-full" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
                 </div>
                 <div class="absolute top-2 right-2 rounded-full bg-white p-1 shadow-lg cursor-pointer">
-                    <img id="heartIcon${post.postId}" class="w-6" src="${heartIcon}" alt="Like Icon" onclick="toggleLike('${post.postId}')">
+                    <img id="heartIcon${post.postId}" class="w-7" src="${heartIcon}" alt="Like Icon" onclick="toggleLike('${post.postId}')">
                 </div>
             </div>
             <div class="p-4">
@@ -186,25 +188,28 @@ function displayUserPost(post) {
     }
 
     const cardHTML = `
-        <div class="flex justify-center mb-3">
-            <div class="grid grid-cols-8 w-10/12 h-32 bg-gray-200 rounded-xl">
-            <div class="col-span-3 flex items-center justify-center px-3">
-                <div class="bg-white w-full h-5/6 rounded-xl flex items-center justify-center overflow-hidden" style="background-image: url('${post.imageUrl}'); background-size: cover; background-position: center;"></div>
-            </div>
-            <div class="col-span-3 flex flex-col justify-center px-3">
-                <p class="text-sm font-bold">${post.title}</p>
-                <p class="text-xs text-gray-600">$${post.price}</p>
-            </div>
-            <div class="col-span-2 flex flex-col items-center justify-center gap-y-5">
-                <div class="editPostIcon" onclick="openModalEdit('${post.postId}', '${post.title}', '${post.desc}', ${post.price})">
-                <img class="ms-1 w-7 h-7" src="../../Public/img/edit.svg" alt="">
-                </div>
-                <div class="deletePostIcon" onclick="openModalDelete('${post.postId}')">
-                <img class="w-7 h-7 fill-red-600" src="../../Public/img/trashcan.svg" alt="">
-                </div>
-            </div>
-            </div>
-        </div>`;
+<div class="flex justify-center mb-4">
+  <div class="relative w-10/12 max-w-lg h-40 bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="bg-cover bg-center w-full h-full" style="background-image: url('${post.imageUrl}');"></div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+      <p class="text-lg font-semibold text-white truncate">${post.title}</p>
+      <p class="text-sm text-gray-200">$${post.price}</p>
+    </div>
+    <div class="absolute top-2 right-2 flex gap-2">
+      <div class="cursor-pointer bg-white p-1 rounded-full shadow-lg hover:bg-gray-200" onclick="openModalEdit('${post.postId}', '${post.title}', '${post.desc}', ${post.price})">
+        <img class="w-7 h-7" src="../../Public/img/edit.svg" alt="Edit">
+      </div>
+      <div class="cursor-pointer bg-white p-1 rounded-full shadow-lg hover:bg-gray-200" onclick="openModalDelete('${post.postId}')">
+        <img class="w-7 h-7 text-red-600" src="../../Public/img/trashcan.svg" alt="Delete">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+`;
 
     cardsArea.innerHTML += cardHTML;
 }
@@ -298,10 +303,13 @@ function retrievePostInformation(postId) {
             // Handle like icon in detail view
             let userLikes = JSON.parse(getLocalStorageValue('likes')) || [];
             const heartIcon = userLikes.includes(postId) ? "Public/img/full-red-heart.svg" : "Public/img/heart.svg";
-            document.getElementById('heartIconDetail').src = heartIcon;
-            document.getElementById('heartIconDetail').onclick = function () {
-                toggleLike(postId);
-            };
+
+            if(document.getElementById('heartIconDetail')) {
+                document.getElementById('heartIconDetail').src = heartIcon;
+                document.getElementById('heartIconDetail').onclick = function () {
+                    toggleLike(postId);
+                };
+            }
 
             // Stop loader
             var loader = document.getElementById('loader');
