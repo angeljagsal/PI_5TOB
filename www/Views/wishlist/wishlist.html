@@ -5,17 +5,17 @@
 </div>
 
 <!-- Upper section -->
- <div class="m-8">
-   <div class="flex items-center space-x-4">
-     <div id="userImg" class="w-12 h-12 bg-cover bg-center rounded-full"
-       style="background-image: url('Public/img/default-user.webp');"></div>
-     <div class="flex flex-col">
-       <p id="usernameUpper" class="text-sm text-gray-600">username's</p>
-       <h1 class="text-xl text-gray-800 font-bold">wishlist</h1>
-     </div>
-   </div>
-   <hr class="border border-gray-300 mt-6 mb-6 text-black">
- </div>
+<div class="m-8">
+  <div class="flex items-center space-x-4">
+    <div id="upperImg" class="w-12 h-12 bg-cover bg-center rounded-full"
+      style="background-image: url('Public/img/default-user.webp');"></div>
+    <div class="flex flex-col">
+      <p id="usernameUpper" class="text-sm text-gray-600">username's</p>
+      <h1 class="text-xl text-gray-800 font-bold">wishlist</h1>
+    </div>
+  </div>
+  <hr class="border border-gray-300 mt-6 mb-6 text-black">
+</div>
 
 <!-- All liked posts are shown here, using js -->
 <div class="userLikesArea mb-20" id="userLikesArea">
@@ -42,17 +42,20 @@
 <!-- Post information (initially hidden) -->
 <div id="post" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
   <div class="relative h-full w-full">
-    <div id="arrowBack"
-      class="absolute arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer ms-4 mt-4">
-      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-        stroke="currentColor">
+    <div id="arrowBack" class="absolute arrowBack col-span-1 bg-black w-fit rounded py-1 p-0.5 pe-1 cursor-pointer ms-4 mt-4">
+      <svg class="w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
       </svg>
     </div>
     <div id="bgImg" class="w-full h-96 bg-cover bg-center"></div>
-    <div id="tripInfo" class="absolute bottom-0 w-full h-[calc(100%-18rem)] bg-gray-100 rounded-t-3xl z-10">
+    <div id="tripInfo" class="absolute bottom-0 w-full h-[calc(100%-18rem)] bg-white rounded-t-3xl z-10 overflow-auto pb-8">
       <div class="mt-6 mx-6">
-        <h1 id="title" class="text-2xl font-semibold"></h1>
+        <div class="flex items-center justify-between">
+          <h1 id="title" class="text-2xl font-semibold"></h1>
+          <div class="p-2 bg-gray-300 rounded-xl shadow-lg">
+            <img id="heartIconDetail" class="w-7 cursor-pointer" src="Public/img/heart.svg" alt="Like Icon">
+          </div>
+        </div>
         <div class="flex items-center space-x-2">
           <h1 id="price" class="text-3xl font-semibold"></h1>
           <p class="text-xl text-gray-500">$ / person</p>
@@ -61,17 +64,17 @@
         <div id="desc" class="text-gray-500 w-full"></div>
         <h2 class="mt-10 mb-3 text-xl font-semibold">Post created by</h2>
         <div class="flex items-center">
-          <div id="userImg" class="w-8 h-8 bg-cover bg-center rounded-full"
-            style="background-image: url('Public/img/newyork.jpg');"></div>
+          <div id="userImg" class="w-8 h-8 bg-cover bg-center rounded-full"></div>
           <p id="creator" class="ml-2"></p>
         </div>
-        <button class="w-full mt-6 p-3 bg-green-500 text-white font-bold rounded-lg">CONTACT US!</button>
+        <button class="w-full mt-6 p-3 bg-blue-500 text-white font-bold rounded-lg">Get in contact</button>
       </div>
     </div>
   </div>
 </div>
 
-<script src="../Controllers/userControllers.js"></script>
+<script src="../../Controllers/postController.js"></script>
+<script src="../../Controllers/userControllers.js"></script>
 
 <script>
   // Manage users without account
@@ -85,13 +88,13 @@
   loadUserLikes();
 
   // Upper username and image
-  var userImage = document.getElementById('userImg');
+  var userImage = document.getElementById('upperImg');
   var profileImg = getLocalStorageValue('profileImg');
 
   if (profileImg == 'undefined') {
-    userImage.src = "Public/img/default-user.webp";
+    userImage.style.backgroundImage = "url('Public/img/default-user.webp')";
   } else {
-    userImage.src = profileImg;
+    userImage.style.backgroundImage = `url(${profileImg})`;
   }
 
   var username = getLocalStorageValue('username');

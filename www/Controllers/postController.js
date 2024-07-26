@@ -188,28 +188,25 @@ function displayUserPost(post) {
     }
 
     const cardHTML = `
-<div class="flex justify-center mb-4">
-  <div class="relative w-10/12 max-w-lg h-40 bg-white shadow-lg rounded-lg overflow-hidden">
-    <div class="absolute inset-0">
-      <div class="bg-cover bg-center w-full h-full" style="background-image: url('${post.imageUrl}');"></div>
-    </div>
-    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-      <p class="text-lg font-semibold text-white truncate">${post.title}</p>
-      <p class="text-sm text-gray-200">$${post.price}</p>
-    </div>
-    <div class="absolute top-2 right-2 flex gap-2">
-      <div class="cursor-pointer bg-white p-1 rounded-full shadow-lg hover:bg-gray-200" onclick="openModalEdit('${post.postId}', '${post.title}', '${post.desc}', ${post.price})">
-        <img class="w-7 h-7" src="../../Public/img/edit.svg" alt="Edit">
-      </div>
-      <div class="cursor-pointer bg-white p-1 rounded-full shadow-lg hover:bg-gray-200" onclick="openModalDelete('${post.postId}')">
-        <img class="w-7 h-7 text-red-600" src="../../Public/img/trashcan.svg" alt="Delete">
-      </div>
-    </div>
-  </div>
-</div>
-
-
-`;
+        <div class="flex justify-center mb-4">
+        <div class="relative w-10/12 max-w-lg h-40 bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="absolute inset-0">
+            <div class="bg-cover bg-center w-full h-full" style="background-image: url('${post.imageUrl}');"></div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+            <p class="text-lg font-semibold text-white truncate">${post.title}</p>
+            <p class="text-sm text-gray-200">$${post.price}</p>
+            </div>
+            <div class="absolute top-2 right-2 flex gap-2">
+            <div class="cursor-pointer bg-white p-1 rounded-full shadow-lg hover:bg-gray-200" onclick="openModalEdit('${post.postId}', '${post.title}', '${post.desc}', ${post.price})">
+                <img class="w-7 h-7" src="../../Public/img/edit.svg" alt="Edit">
+            </div>
+            <div class="cursor-pointer bg-white p-1 rounded-full shadow-lg hover:bg-gray-200" onclick="openModalDelete('${post.postId}')">
+                <img class="w-7 h-7 text-red-600" src="../../Public/img/trashcan.svg" alt="Delete">
+            </div>
+            </div>
+        </div>
+        </div>`;
 
     cardsArea.innerHTML += cardHTML;
 }
@@ -298,7 +295,8 @@ function retrievePostInformation(postId) {
 
             let defaultImg = 'Public/img/default-user.webp';
             let backgroundImageUrl = (creatorImg && creatorImg.trim()) ? `url('${creatorImg}')` : `url('${defaultImg}')`;
-            document.getElementById('userImg').style.backgroundImage = backgroundImageUrl;
+            var userImg = document.getElementById('userImg');
+            userImg.style.backgroundImage = backgroundImageUrl;
 
             // Handle like icon in detail view
             let userLikes = JSON.parse(getLocalStorageValue('likes')) || [];

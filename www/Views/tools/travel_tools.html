@@ -81,9 +81,9 @@
   var profileImg = getLocalStorageValue('profileImg');
 
   if (profileImg == 'undefined') {
-    userImage.src = "Public/img/default-user.webp";
+    userImage.style.backgroundImage = "url('Public/img/default-user.webp')";
   } else {
-    userImage.src = profileImg;
+    userImage.style.backgroundImage = `url(${profileImg})`;
   }
 
   var username = getLocalStorageValue('username');
